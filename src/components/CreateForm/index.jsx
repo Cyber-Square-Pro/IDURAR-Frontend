@@ -44,7 +44,7 @@ export default function CreateForm({ config, formElements }) {
         {formElements}
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            submit
           </Button>
         </Form.Item>
       </Form>
