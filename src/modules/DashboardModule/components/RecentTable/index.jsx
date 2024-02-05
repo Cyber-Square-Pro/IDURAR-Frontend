@@ -28,7 +28,7 @@ function DropDownRowMenu({ row, entity }) {
   }
 
   return (
-    <Menu style={{ width: 130 }}>
+    <Menu style={{ width: 130 }} >
       <Menu.Item icon={<EyeOutlined />} onClick={Show}>
         Show
       </Menu.Item>
@@ -71,7 +71,7 @@ export default function RecentTable({ ...props }) {
   );
 
   return (
-    <div ref={tableHeader}>
+    <div ref={tableHeader} >
       <Table
         columns={tableColumns}
         rowKey={(item) => item._id}
@@ -85,7 +85,7 @@ export default function RecentTable({ ...props }) {
                   <Descriptions title="" bordered column={1}>
                     {expandedRowData.map((item, index) => {
                       return (
-                        <Descriptions.Item key={index} label={item.title}>
+                        <Descriptions.Item key={index} label={item.title} >
                           {item.render?.(record[item.dataIndex])?.children
                             ? item.render?.(record[item.dataIndex])?.children
                             : item.render?.(record[item.dataIndex])

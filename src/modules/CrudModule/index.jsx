@@ -64,7 +64,7 @@ function SidePanelTopContent({ config, formElements }) {
             type="text"
             icon={<DeleteOutlined />}
             size="small"
-            style={{ float: 'right', marginLeft: '5px' }}
+            style={{ float: 'right', marginLeft: '5px'}}
           >
             remove
           </Button>
@@ -73,7 +73,7 @@ function SidePanelTopContent({ config, formElements }) {
             type="text"
             icon={<EditOutlined />}
             size="small"
-            style={{ float: 'right', marginLeft: '0px' }}
+            style={{ float: 'right', marginLeft: '0px'}}
           >
             edit
           </Button>
