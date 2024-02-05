@@ -37,13 +37,13 @@ const LoginPage = () => {
               src={logo}
               alt="Logo"
               style={{
-                margin: '-70px auto 40px',
+                margin: '-150px auto 40px',
                 display: 'block',
               }}
             />
             <div className="space50"></div>
           </Col>
-          <Title level={1}>Sign in</Title>
+          <Title level={1}>Login in</Title>
 
           <Divider />
           <div className="site-layout-content">
