@@ -2,6 +2,13 @@ const CracoLessPlugin = require('craco-less');
 const CracoAlias = require('craco-alias');
 
 module.exports = {
+  eslint: {
+    configure: {
+      rules: {
+        "no-unused-vars": "off"
+      }
+    }
+  },
   plugins: [
     {
       plugin: CracoAlias,
