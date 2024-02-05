@@ -129,7 +129,7 @@ export default function PreviewCard({
         <h3
           style={{
             color: '#22075e',
-            marginBottom: 15,
+            marginBottom: 15
           }}
         >
           {title}

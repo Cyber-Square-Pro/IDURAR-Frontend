@@ -146,8 +146,8 @@ export default function DashboardModule() {
       </Row>
       <div className="space30"></div>
       <Row gutter={[24, 24]}>
-        <Col className="gutter-row w-full" sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 18 }}>
-          <div className="whiteBox shadow" style={{ minHeight: '380px', height: '100%' }}>
+        <Col className="gutter-row w-full" sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 18 }} >
+          <div className="whiteBox shadow" style={{ minHeight: '380px', height: '100%' }} >
             <Row className="pad10" gutter={[0, 0]}>
               {statisticCards}
             </Row>
