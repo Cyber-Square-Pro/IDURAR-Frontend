@@ -37,7 +37,7 @@ const LoginPage = () => {
               src={logo}
               alt="Logo"
               style={{
-                margin: '-70px auto 40px',
+                margin: '-150px auto 40px',
                 display: 'block',
               }}
             />
