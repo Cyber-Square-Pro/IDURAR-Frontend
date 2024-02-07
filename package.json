@@ -36,7 +36,7 @@
     "web-vitals": "1.0.1"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "env-cmd -e qa craco --openssl-legacy-provider start",
     "start:dev": "cross-env REACT_APP_DEV_REMOTE=remote npm start",
     "build": "env-cmd -e development craco --openssl-legacy-provider build",
     "build:qa": "env-cmd -e qa craco  --openssl-legacy-provider build",
