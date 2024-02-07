@@ -14,6 +14,7 @@
     "cross-env": "7.0.3",
     "currency.js": "2.0.4",
     "dayjs": "1.10.4",
+    "env-cmd": "^10.1.0",
     "framer-motion": "4.1.13",
     "history": "4.10.1",
     "hoist-non-react-statics": "3.3.2",
@@ -26,7 +27,7 @@
     "react-quill": "^2.0.0",
     "react-redux": "7.2.8",
     "react-router-dom": "5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^4.0.3",
     "react-use": "17.3.2",
     "redux": "4.2.0",
     "redux-logger": "3.0.6",
@@ -35,9 +36,11 @@
     "web-vitals": "1.0.1"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "env-cmd -e qa craco --openssl-legacy-provider start",
     "start:dev": "cross-env REACT_APP_DEV_REMOTE=remote npm start",
-    "build": "craco build",
+    "build": "env-cmd -e development craco --openssl-legacy-provider build",
+    "build:qa": "env-cmd -e qa craco  --openssl-legacy-provider build",
+    "build:live": "env-cmd -e live craco --openssl-legacy-provider build",
     "dev:new": "cross-env npm start",
     "test": "craco test",
     "eject": "react-scripts eject"
