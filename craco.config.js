@@ -20,7 +20,7 @@ module.exports = {
           lessOptions: {
             modifyVars: {
               'root-entry-name': 'default',
-              'primary-color': '#1B98F5',
+              'primary-color': '#1b98f5',
               'link-color': '#1B98F5',
               'border-radius-base': '4px',
               'heading-color': '#10002b',

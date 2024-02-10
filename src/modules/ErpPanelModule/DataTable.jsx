@@ -22,7 +22,7 @@ function AddNewItem({ config }) {
   };
 
   return (
-    <Button onClick={handelClick} type="primary" icon={<PlusOutlined />}>
+    <Button onClick={handelClick} type="danger" icon={<PlusOutlined />}>
       {ADD_NEW_ENTITY}
     </Button>
   );

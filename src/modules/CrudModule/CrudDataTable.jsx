@@ -19,7 +19,7 @@ function AddNewItem({ config }) {
   };
 
   return (
-    <Button onClick={handelClick} type="primary">
+    <Button onClick={handelClick} type="danger">
       {ADD_NEW_ENTITY}
     </Button>
   );
