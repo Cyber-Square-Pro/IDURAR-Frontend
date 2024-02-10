@@ -17,7 +17,7 @@ export default function AnalyticSummaryCard({
     >
       <div
         className="whiteBox shadow"
-        style={{ color: '#595959', fontSize: 13, minHeight: '106px', height: '100%' }}
+        style={{ color: '#0F1293', fontSize: 13, minHeight: '106px', height: '100%'}}
       >
         <div className="pad15 strong" style={{ textAlign: 'center', justifyContent: 'center' }}>
           <h3 style={{ color: '#22075e', marginBottom: 0, textTransform: 'capitalize' }}>
@@ -25,10 +25,10 @@ export default function AnalyticSummaryCard({
           </h3>
         </div>
         <Divider style={{ padding: 0, margin: 0 }}></Divider>
-        <div className="pad15">
+        <div className="pad15" >
           <Row gutter={[0, 0]} justify="space-between" wrap={false}>
             <Col className="gutter-row" flex="70px" style={{ textAlign: 'left' }}>
-              <div className="left" style={{ whiteSpace: 'nowrap' }}>
+              <div className="left" style={{ whiteSpace: 'nowrap' }} >
                 {prefix}
               </div>
             </Col>
@@ -63,6 +63,8 @@ export default function AnalyticSummaryCard({
                       overflow: 'hidden',
                       whiteSpace: 'nowrap',
                       textOverflow: 'ellipsis',
+                      backgroundColor:'blue',
+                      color: "white",
                     }}
                   >
                     {tagContent ? tagContent : '$0.00'}
