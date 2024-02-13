@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button, Drawer, Layout, Menu } from 'antd';
 
 import { useAppContext } from '@/context/appContext';
-import logoIcon from '@/style/images/logo-icon.svg';
-import logoText from '@/style/images/logo-text.svg';
+// import logoIcon from '@/style/images/logo-icon.svg';
+// import logoText from '@/style/images/logo-text.svg';
 import history from '@/utils/history';
-
+import logo from '@/style/images/cybersquare.jpg';
 import {
   SettingOutlined,
   CustomerServiceOutlined,
@@ -93,12 +93,12 @@ function Sidebar({ collapsible }) {
         className="navigation"
       >
         <div className="logo" onClick={() => history.push('/')} style={{ cursor: 'pointer' }}>
-          <img src={logoIcon} alt="Logo" style={{ height: '32px' }} />
+          <img src={logo} alt="Logo" style={{ height: '52px', }} />
 
           {!showLogoApp && (
             <img
-              src={logoText}
-              alt="Logo"
+              src=""
+              alt=""
               style={{ marginTop: '3px', marginLeft: '10px', height: '29px' }}
             />
           )}

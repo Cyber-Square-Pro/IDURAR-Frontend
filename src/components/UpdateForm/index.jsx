@@ -101,7 +101,7 @@ export default function UpdateForm({ config, formElements }) {
             }}
           >
             <Button type="primary" htmlType="submit">
-              Save
+              save
             </Button>
           </Form.Item>
           <Form.Item
