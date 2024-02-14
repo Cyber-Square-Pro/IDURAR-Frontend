@@ -72,7 +72,7 @@ const defaultInvoiceStatistics = [
 
 const PreviewState = ({ tag, color, value }) => {
   return (
-    <div style={{ color: '#595959', marginBottom: 5 }}>
+    <div style={{ color: 'white', marginBottom: 5 ,backgroundColor:'black'}}>
       <div className="left alignLeft capitalize">{tag}</div>
       <div className="right alignRight">{value} %</div>
       <Progress
@@ -128,14 +128,14 @@ export default function PreviewCard({
       <div className="pad15">
         <h3
           style={{
-            color: '#22075e',
+            color: 'black',
             marginBottom: 15,
           }}
         >
           {title}
         </h3>
         {isLoading ? (
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center',}}>
             <Spin />
           </div>
         ) : (

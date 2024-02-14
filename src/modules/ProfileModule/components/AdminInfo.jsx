@@ -55,7 +55,7 @@ const AdminInfo = ({ config }) => {
             style={{
               width: '100px',
               height: '100px',
-              border: '2px solid #1B98F5',
+              border: '2px solid red',
             }}
             alt={`${currentAdmin?.name}`}
           />

@@ -12,7 +12,7 @@ export default function EmailForm({ current = null }) {
   const displayLabels = (labels = []) => (
     <>
       {labels.map((label) => (
-        <Tag onClick={() => setBody(body)} color="blue">
+        <Tag onClick={() => setBody(body)} color="red">
           {label}
         </Tag>
       ))}

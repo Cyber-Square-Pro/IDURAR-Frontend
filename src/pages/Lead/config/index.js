@@ -3,7 +3,7 @@ const entity = 'lead';
 const Labels = {
   PANEL_TITLE: 'Lead',
   dataTableTitle: 'Lead List',
-  ADD_NEW_ENTITY: 'Add New Lead',
+  ADD_NEW_ENTITY: 'Add New Lead********',color:"red",
   DATATABLE_TITLE: 'Lead List',
   ENTITY_NAME: 'Lead',
   CREATE_ENTITY: 'Save Lead',

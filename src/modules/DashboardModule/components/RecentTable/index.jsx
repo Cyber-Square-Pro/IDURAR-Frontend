@@ -28,7 +28,8 @@ function DropDownRowMenu({ row, entity }) {
   }
 
   return (
-    <Menu style={{ width: 130 }}>
+   
+    <Menu style={{ width: 130 , }}>
       <Menu.Item icon={<EyeOutlined />} onClick={Show}>
         Show
       </Menu.Item>
@@ -50,7 +51,7 @@ export default function RecentTable({ ...props }) {
       title: '',
       render: (row) => (
         <Dropdown overlay={DropDownRowMenu({ row, entity })} trigger={['click']}>
-          <EllipsisOutlined style={{ cursor: 'pointer', fontSize: '24px' }} />
+          <EllipsisOutlined style={{ cursor: 'pointer', fontSize: '24px', color:'red'}} />
         </Dropdown>
       ),
     },
@@ -70,8 +71,7 @@ export default function RecentTable({ ...props }) {
     firstFiveItems()
   );
 
-  return (
-    <div ref={tableHeader}>
+  return (   <div ref={tableHeader}>
       <Table
         columns={tableColumns}
         rowKey={(item) => item._id}
@@ -103,5 +103,6 @@ export default function RecentTable({ ...props }) {
         }
       />
     </div>
-  );
+  )
+    
 }
