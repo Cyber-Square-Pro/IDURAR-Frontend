@@ -7,6 +7,7 @@ import { selectListItems } from '@/redux/crud/selectors';
 import uniqueId from '@/utils/uinqueId';
 import useResponsiveTable from '@/hooks/useResponsiveTable';
 
+
 export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
   let { entity, dataTableColumns, DATATABLE_TITLE } = config;
 
@@ -29,6 +30,10 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
 
   const { items } = listResult;
 
+  const [sortData,setSortByData]=useState("None");
+  const [sortByKey,setSortByKey] =useState("ASC");
+
+
   const dispatch = useDispatch();
 
 
@@ -47,11 +52,19 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
     setPagination({ ...pagination, current: 1, pageSize: parseInt(key) });
   };
 
+  const handleSortByData=({key})=>{
+     setSortByData(key);
+
+  };
+  const handleSortKey=({key})=>{
+    setSortByKey(key);
+  };
+
   useEffect(() => {
     dispatch(crud.list({ entity }));
   }, []);
 
-  
+
   const { expandedRowData, tableColumns, tableHeader } = useResponsiveTable(
     dataTableColumns,
     items
@@ -67,6 +80,22 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
 
     </Menu>
   );
+
+   const sortByData=(
+    <Menu onClick={handleSortByData}>
+      <Menu.Item key="Name">Name</Menu.Item>
+      <Menu.Item key="Email">Email</Menu.Item>
+      <Menu.Item key="Course">Course</Menu.Item>
+
+    </Menu>
+   );
+   const sortOptions=(
+    <Menu onClick={handleSortKey}>
+    <Menu.Item key="ASC">ASC</Menu.Item>
+    <Menu.Item key="DESC">DESC</Menu.Item> 
+
+  </Menu>
+   );
   return (
     <>
       <div ref={tableHeader}>
@@ -84,8 +113,8 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
             padding: '20px 0px',
           }}
         ></PageHeader>
-        <div style={{ display: 'flex',justifyContent: 'right', alignItems: 'center', marginBottom: '20px' ,}}>
-          <Dropdown overlay={pageSizeMenu} trigger={['click']}>
+        <div className='records-dropdown' style={{ display: 'flex',justifyContent: 'right', alignItems: 'center', marginBottom: '20px' ,}}>
+          <Dropdown overlay={pageSizeMenu} trigger={['click']} style={{width :"300px"}}>
             <Button>
               {pagination.pageSize} -Records per page <DownOutlined />
             </Button>
@@ -97,9 +126,21 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
             total={items.length}
             onChange={handlePaginationChange}
             defaultCurrent={2} 
-            // simple 
           
           />
+        </div>
+        <div style={{display:'flex', justifyContent:"right" ,gap:"20px", height:"30px", cursor:'pointer',marginBottom:"10px"}}>
+        <label style={{marginTop:"4px"}} > Sort by</label>
+        <Dropdown overlay={sortByData} trigger={['click']}>
+        <Button>
+           {sortData}<DownOutlined />
+            </Button>
+        </Dropdown>
+        <Dropdown overlay={sortOptions} trigger={['click']}>
+        <Button>
+              {sortByKey} <DownOutlined />
+            </Button>
+        </Dropdown>
         </div>
       </div>
       <Table
