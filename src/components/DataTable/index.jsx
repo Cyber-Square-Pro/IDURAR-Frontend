@@ -33,6 +33,8 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
   const [sortData,setSortByData]=useState("None");
   const [sortByKey,setSortByKey] =useState("ASC");
 
+  
+
 
   const dispatch = useDispatch();
 
@@ -96,9 +98,11 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
 
   </Menu>
    );
+ 
   return (
     <>
       <div ref={tableHeader}>
+
         <PageHeader
           onBack={() => window.history.back()}
           title={DATATABLE_TITLE}
@@ -107,18 +111,23 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
             <Button onClick={handleDataTableLoad} key={uniqueId()}>
               Refresh
             </Button>,
-            <AddNewItem key={uniqueId()} config={config} />,
+
+            <AddNewItem key={uniqueId()} config={config} />       
           ]}
           style={{
             padding: '20px 0px',
           }}
-        ></PageHeader>
+        >
+
+        </PageHeader>
+
         <div className='records-dropdown' style={{ display: 'flex',justifyContent: 'right', alignItems: 'center', marginBottom: '20px' ,}}>
           <Dropdown overlay={pageSizeMenu} trigger={['click']} style={{width :"300px"}}>
             <Button>
               {pagination.pageSize} -Records per page <DownOutlined />
             </Button>
           </Dropdown>
+
           <Pagination 
           style={{marginLeft:"20px"}}
             current={pagination.current}
@@ -128,16 +137,19 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
             defaultCurrent={2} 
           
           />
+
         </div>
         <div style={{display:'flex', justifyContent:"right" ,gap:"20px", height:"30px", cursor:'pointer',marginBottom:"10px"}}>
         <label style={{marginTop:"4px"}} > Sort by</label>
+
         <Dropdown overlay={sortByData} trigger={['click']}>
         <Button>
            {sortData}<DownOutlined />
-            </Button>
+          </Button>
         </Dropdown>
+
         <Dropdown overlay={sortOptions} trigger={['click']}>
-        <Button>
+            <Button>
               {sortByKey} <DownOutlined />
             </Button>
         </Dropdown>
