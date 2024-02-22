@@ -79,8 +79,7 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
       </Menu>
     </div>
   );
-  console.log(item)
-
+  console.log(tableHeader.current)
 
   return (
     <>
