@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
-import { Dropdown, Button, PageHeader, Table, Col, Descriptions } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Dropdown, Button, PageHeader, Table, Col, Descriptions, Menu, Space } from 'antd';
 
-import { EllipsisOutlined } from '@ant-design/icons';
+import { EllipsisOutlined, DownOutlined,UnorderedListOutlined,AppstoreOutlined,TableOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { crud } from '@/redux/crud/actions';
 import { selectListItems } from '@/redux/crud/selectors';
@@ -45,6 +45,42 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
     items
   );
 
+  const ViewItems = [
+    {
+      key: '1',
+      label: 'Custom List View',
+      Icon:<UnorderedListOutlined />
+    },
+    {
+      key: '2',
+      label: 'Tile View',
+      Icon:<AppstoreOutlined />
+
+    },
+    {
+      key: '3',
+      label: 'Table Vew',
+      Icon:<TableOutlined />
+
+    },
+  ];
+
+  const [item,setItem] = useState('');
+  const menu = (
+    <div>
+      <Menu onClick={(e) => setItem(e.domEvent)} style={{ marginLeft: '-60px' }}>
+        {ViewItems.map((ViewItems) => (
+          <Menu.Item key={ViewItems.key}>
+            <span style={{marginRight:'10px'}}>{ViewItems.Icon}</span>
+            {ViewItems.label}
+            </Menu.Item>
+        ))}
+      </Menu>
+    </div>
+  );
+  console.log(item)
+
+
   return (
     <>
       <div ref={tableHeader}>
@@ -53,13 +89,29 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
           title={DATATABLE_TITLE}
           ghost={false}
           extra={[
-            <Button onClick={handelDataTableLoad} key={`${uniqueId()}`}>
+            <Dropdown overlay={menu} trigger={['click']}>
+              <a
+                style={{ marginRight: '5px' }}
+                className="ant-dropdown-link"
+                onClick={(e) => e.preventDefault()}
+              >
+                <Space>
+                  {/* {item} */}
+                  <DownOutlined />
+                </Space>
+              </a>
+            </Dropdown>,
+            <Button
+              style={{ marginRight: '10px' }}
+              onClick={handelDataTableLoad}
+              key={`${uniqueId()}`}
+            >
               Refresh
             </Button>,
             <AddNewItem key={`${uniqueId()}`} config={config} />,
           ]}
           style={{
-            padding: '20px 0px',
+            padding: '0px 20px 0px',
           }}
         ></PageHeader>
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Menu } from 'antd';
+import { Button, Menu,Dropdown } from 'antd';
 import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { crud } from '@/redux/crud/actions';
@@ -18,10 +18,36 @@ function AddNewItem({ config }) {
     collapsedBox.close();
   };
 
+  const items = [
+    {
+      key: '1',
+      label: '1st item',
+    },
+    {
+      key: '2',
+      label: '2nd item',
+    },
+    {
+      key: '3',
+      label: '3rd item',
+    },
+  ];
+
+
+  const menu = (
+    <Menu>
+      {items.map(item => (
+        <Menu.Item key={item.key} >
+          {item.label}
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
+
   return (
-    <Button onClick={handelClick} type="primary">
+    <Dropdown.Button onClick={() => handelClick()} overlay={menu} type="primary">
       {ADD_NEW_ENTITY}
-    </Button>
+    </Dropdown.Button>
   );
 }
 function DropDownRowMenu({ row }) {

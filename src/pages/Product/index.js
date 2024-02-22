@@ -99,7 +99,7 @@
       <CrudModule
         // createForm={<LeadForm />}
         // updateForm={<LeadForm isUpdateForm={true} />}
-        config={config}
+          config={config}
       />
     );
   }
