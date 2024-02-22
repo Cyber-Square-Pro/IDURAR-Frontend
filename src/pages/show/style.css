@@ -1,0 +1,28 @@
+Input {
+    padding: 8px;
+    border: none;
+   
+    outline: none; /* Remove default outline */
+width:400px;
+height:38px;
+border-bottom-color: 2px solid transparent;
+    border-top-color: 2px solid transparent;
+    border-right-color: 2px solid transparent;
+    border-left-color: 2px solid transparent;
+    border-color: aliceblue;
+  }
+  
+  /* Style for input field when hovering */
+  Input:hover {
+    /* border-bottom-color: blue; */
+    outline:auto ;
+    outline-color: #111010;
+    
+    
+  }
+  
+  /* Hide bottom border when not hovered */
+  Input:not(:hover) {
+    border-bottom-color: transparent;
+  }
+  
