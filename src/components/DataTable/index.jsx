@@ -68,9 +68,10 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
   const [item,setItem] = useState('');
   const menu = (
     <div>
-      <Menu onClick={(e) => setItem(e.domEvent)} style={{ marginLeft: '-60px' }}>
+      <Menu  style={{ marginLeft: '-60px' }}>
         {ViewItems.map((ViewItems) => (
-          <Menu.Item key={ViewItems.key}>
+          <Menu.Item onClick={(e) => setItem(e.domEvent.target.firstElementChild.childNodes[0].innerHTML)}
+           key={ViewItems.key}>
             <span style={{marginRight:'10px'}}>{ViewItems.Icon}</span>
             {ViewItems.label}
             </Menu.Item>
@@ -96,7 +97,7 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
                 onClick={(e) => e.preventDefault()}
               >
                 <Space>
-                  {/* {item} */}
+                <span dangerouslySetInnerHTML={{ __html: item }} />
                   <DownOutlined />
                 </Space>
               </a>
