@@ -99,9 +99,24 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   );
 
   const sortOptions = (
-    <Menu onClick={handleSortKey}>
+    <Menu onClick={handleSortKey}> 
       <Menu.Item key="ASC">ASC</Menu.Item>
       <Menu.Item key="DESC">DESC</Menu.Item>
+    </Menu>
+  );
+  const importOptions = (
+    <Menu>
+      <Menu.Item key="notes">Import Notes</Menu.Item>
+      <Menu.Item key="leads">Import Leads</Menu.Item>
+    </Menu>
+  );
+  const importActions = (
+    <Menu>
+      <Menu.Item key="delete">Mass Delete</Menu.Item>
+      <Menu.Item key="update">Mass Update</Menu.Item>
+      <Menu.Item key="convert">Mass Convert</Menu.Item>
+      <Menu.Item key="tag">Manage Tags</Menu.Item>
+      <Menu.Item key="draft">Draft</Menu.Item>
     </Menu>
   );
   
@@ -116,7 +131,7 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
       </Menu.Item>
       <Menu.Item key="list" icon={<UnorderedListOutlined />}>
         List View
-      </Menu.Item>
+      </Menu.Item>  
     </Menu>
   );
 
@@ -165,7 +180,20 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
             <Button onClick={handleDataTableLoad} key={uniqueId()}>
               Refresh
             </Button>,
+
             <AddNewItem key={uniqueId()} config={config} />,
+            <Dropdown key="dropdown" overlay={importOptions} placement="bottomRight">
+
+            <Button style={{marginLeft:"0px"}} type='primary'> 
+                          <DownOutlined/> 
+              </Button> 
+          </Dropdown>,
+          <Dropdown key="Action_dropdown" overlay={importActions} placement="bottomRight">
+
+          <Button style={{marginLeft:"10px"}} > 
+                       Action <DownOutlined/> 
+            </Button> 
+        </Dropdown>,
             <Dropdown overlay={viewTypeMenu} trigger={['click']}>
               <Button>
                 {viewType === 'table' ? (
