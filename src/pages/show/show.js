@@ -36,7 +36,7 @@ const contentList = {
 };
 
 
-const App = () => {
+const Show = () => {
     const [activeTabKey1, setActiveTabKey1] = useState('tab1');
     
 
@@ -247,4 +247,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default Show;
