@@ -104,6 +104,7 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
       <Menu.Item key="DESC">DESC</Menu.Item>
     </Menu>
   );
+  
 
   const viewTypeMenu = (
     <Menu onClick={handleViewTypeChange}>
