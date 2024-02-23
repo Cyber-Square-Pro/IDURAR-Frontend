@@ -1,28 +1,65 @@
-Input {
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+td {
+    padding-right: 60px;
+    color: rgb(130, 131, 131);
+}
+
+.inputField {
     padding: 8px;
     border: none;
-   
-    outline: none; /* Remove default outline */
-width:400px;
-height:38px;
-border-bottom-color: 2px solid transparent;
+    
+    outline: none;
+    /* Remove default outline */
+    width: 400px;
+    height: 38px;
+    border-bottom-color: 2px solid transparent;
     border-top-color: 2px solid transparent;
     border-right-color: 2px solid transparent;
     border-left-color: 2px solid transparent;
     border-color: aliceblue;
-  }
-  
-  /* Style for input field when hovering */
-  Input:hover {
+}
+
+/* Style for input field when hovering */
+.inputField:hover {
     /* border-bottom-color: blue; */
-    outline:auto ;
+    outline: auto;
     outline-color: #111010;
-    
-    
-  }
-  
-  /* Hide bottom border when not hovered */
-  Input:not(:hover) {
+
+
+}
+
+/* Hide bottom border when not hovered */
+.inputField:not(:hover) {
     border-bottom-color: transparent;
-  }
-  
+}
+
+.notes {
+    display: flex;
+    align-Items: center;
+    justify-Content: space-between;
+    position: relative;
+}
+
+.notediv {
+    width: calc(100% - 150px);
+    margin-Right: 10px;
+}
+
+TextArea {
+    width: 100%;
+    min-height: 100px;
+    position: relative;
+}
+
+.noteInput {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.notebtn {
+    display: inline;
+    float: right;
+}
