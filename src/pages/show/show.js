@@ -67,9 +67,9 @@ const Show = () => {
                 <h1>Mr. James Merced (Sample)</h1>
                 <div style={{paddingLeft:'300px'}}></div>
                 <div style={{ marginLeft: 'auto' }}>
-                    <Button type="primary">Send Email</Button>
-                    <Button>Convert</Button>
-                    <Button>Edit</Button>
+                    <Button type="primary">Send Email</Button><span>  </span>
+                    <Button>Convert</Button><span>  </span>
+                    <Button>Edit</Button><span>  </span>
                    
                     
                 </div>
