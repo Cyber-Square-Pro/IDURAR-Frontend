@@ -6,13 +6,14 @@ import {
   AppstoreOutlined,
   TableOutlined,
   UnorderedListOutlined,
-  CaretDownOutlined
+  CaretDownOutlined,
 } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectListItems } from '@/redux/crud/selectors';
 import { crud } from '@/redux/crud/actions';
 import uniqueId from '@/utils/uinqueId';
 import useResponsiveTable from '@/hooks/useResponsiveTable';
+import TileView from '../TileView';
 
 const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   let { entity, dataTableColumns, DATATABLE_TITLE } = config;
@@ -99,7 +100,7 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   );
 
   const sortOptions = (
-    <Menu onClick={handleSortKey}> 
+    <Menu onClick={handleSortKey}>
       <Menu.Item key="ASC">ASC</Menu.Item>
       <Menu.Item key="DESC">DESC</Menu.Item>
     </Menu>
@@ -119,7 +120,6 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
       <Menu.Item key="draft">Draft</Menu.Item>
     </Menu>
   );
-  
 
   const viewTypeMenu = (
     <Menu onClick={handleViewTypeChange}>
@@ -131,37 +131,61 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
       </Menu.Item>
       <Menu.Item key="list" icon={<UnorderedListOutlined />}>
         List View
-      </Menu.Item>  
+      </Menu.Item>
     </Menu>
   );
 
   const ListView = ({ items }) => {
     return (
-      <div  style={{padding: '10px 0'}}>
-        <table style={{ width: '100%', justifyContent: 'center', alignItems: 'center', textAlign: 'left'}}>
-          <thead style={{ backgroundColor: '#FAFAFA', height: '50px'}}>
+      <div style={{ padding: '10px 0' }}>
+        <table
+          style={{
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'left',
+          }}
+        >
+          <thead style={{ backgroundColor: '#FAFAFA', height: '50px' }}>
             <tr>
-              <th style={{padding: '12px'}}><b>Serial No.</b></th>
-              <th><b>First Name</b></th>
-              <th><b>Last Name</b></th>
-              <th><b>Company</b></th>
-              <th><b>Email</b></th>
-              <th><b>Phone</b></th>
-              <th><b>Status</b></th>
+              <th style={{ padding: '12px' }}>
+                <b>Serial No.</b>
+              </th>
+              <th>
+                <b>First Name</b>
+              </th>
+              <th>
+                <b>Last Name</b>
+              </th>
+              <th>
+                <b>Company</b>
+              </th>
+              <th>
+                <b>Email</b>
+              </th>
+              <th>
+                <b>Phone</b>
+              </th>
+              <th>
+                <b>Status</b>
+              </th>
               <th> </th>
             </tr>
           </thead>
           <tbody>
             {items.map((item, index) => (
-              <tr key={item._id} style={{border: 'none', borderBottom: '1px solid #e8e8e8'}}>
-                <td style={{padding: '12px'}}>{index + 1}</td>
+              <tr key={item._id} style={{ border: 'none', borderBottom: '1px solid #e8e8e8' }}>
+                <td style={{ padding: '12px' }}>{index + 1}</td>
                 <td>{item.firstName}</td>
                 <td>{item.lastName}</td>
                 <td>{item.company}</td>
                 <td>{item.email}</td>
                 <td>{item.phone}</td>
-                <td style={{textTransform: 'uppercase'}}>{item.status}</td>
-                <td> <EllipsisOutlined style={{fontSize: '25px',fontWeight: '700'}}/></td>
+                <td style={{ textTransform: 'uppercase' }}>{item.status}</td>
+                <td>
+                  {' '}
+                  <EllipsisOutlined style={{ fontSize: '25px', fontWeight: '700' }} />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -183,17 +207,15 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
 
             <AddNewItem key={uniqueId()} config={config} />,
             <Dropdown key="dropdown" overlay={importOptions} placement="bottomRight">
-
-            <Button style={{marginLeft:"0px"}} type='primary'> 
-                          <DownOutlined/> 
-              </Button> 
-          </Dropdown>,
-          <Dropdown key="Action_dropdown" overlay={importActions} placement="bottomRight">
-
-          <Button style={{marginLeft:"10px"}} > 
-                       Action <DownOutlined/> 
-            </Button> 
-        </Dropdown>,
+              <Button style={{ marginLeft: '0px' }} type="primary">
+                <DownOutlined />
+              </Button>
+            </Dropdown>,
+            <Dropdown key="Action_dropdown" overlay={importActions} placement="bottomRight">
+              <Button style={{ marginLeft: '10px' }}>
+                Action <DownOutlined />
+              </Button>
+            </Dropdown>,
             <Dropdown overlay={viewTypeMenu} trigger={['click']}>
               <Button>
                 {viewType === 'table' ? (
@@ -259,7 +281,8 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
         </div>
       </div>
       {viewType === 'list' && <ListView items={items} />}
-      {viewType !== 'list' && (
+      {viewType === 'tile' && <TileView items={items} DropDownRowMenu={DropDownRowMenu} />}
+      {viewType !== 'list' && viewType !== 'tile' && (
         <Table
           columns={tableColumns}
           rowKey={(item) => item._id}
