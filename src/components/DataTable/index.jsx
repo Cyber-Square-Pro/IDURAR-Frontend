@@ -108,6 +108,7 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
       <Menu.Item key="Desc">Desc</Menu.Item>
     </Menu>
   );
+ 
 
   const viewTypeMenu = (
     <Menu onClick={handleViewTypeChange}>
@@ -176,6 +177,7 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
               Refresh
             </Button>
 
+           
             <AddNewItem key={uniqueId()} config={config} />
             <Dropdown overlay={viewTypeMenu} trigger={['click']}>
               <Button>
