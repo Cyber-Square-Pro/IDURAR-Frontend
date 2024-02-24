@@ -3,14 +3,15 @@
 }
 
 td {
-    padding-right: 60px;
+    padding-right: 20px;
     color: rgb(130, 131, 131);
+    padding-left: 30px;
 }
 
 .inputField {
     padding: 8px;
     border: none;
-    
+
     outline: none;
     /* Remove default outline */
     width: 400px;
@@ -27,12 +28,44 @@ td {
     /* border-bottom-color: blue; */
     outline: auto;
     outline-color: #111010;
+}
+
+/* Hide bottom border when not hovered */
+.inputField:not(:hover) {
+    border-bottom-color: transparent;
+}
+
+.table-header {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.inputField-2 {
+    padding-top: 8px;
+    border: none;
+
+    outline: none;
+    /* Remove default outline */
+    width: 220px;
+    height: 38px;
+    border-bottom-color: 2px solid transparent;
+    border-top-color: 2px solid transparent;
+    border-right-color: 2px solid transparent;
+    border-left-color: 2px solid transparent;
+    border-color: aliceblue;
+}
+
+/* Style for input field when hovering */
+.inputField-2:hover {
+    /* border-bottom-color: blue; */
+    outline: auto;
+    outline-color: #111010;
 
 
 }
 
 /* Hide bottom border when not hovered */
-.inputField:not(:hover) {
+.inputField-2:not(:hover) {
     border-bottom-color: transparent;
 }
 
