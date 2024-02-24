@@ -7,7 +7,6 @@ export default function useOnFetch() {
 
   let onFetch = async (fetchingFn) => {
     setIsLoading(true);
-
     const data = await fetchingFn();
     setResult(data.result);
     if (data.success === true) {
@@ -15,7 +14,6 @@ export default function useOnFetch() {
     } else {
       setIsSuccess(false);
     }
-
     setIsLoading(false);
   };
 

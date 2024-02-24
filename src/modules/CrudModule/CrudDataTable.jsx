@@ -67,7 +67,7 @@ function DropDownRowMenu({ row }) {
     editBox.open();
     panel.open();
     collapsedBox.open();
-  }
+  } 
   function Delete() {
     dispatch(crud.currentAction({ actionType: 'delete', data: item }));
     modal.open();

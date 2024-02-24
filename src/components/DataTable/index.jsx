@@ -5,10 +5,8 @@ import { EllipsisOutlined, DownOutlined,UnorderedListOutlined,AppstoreOutlined,T
 import { useSelector, useDispatch } from 'react-redux';
 import { crud } from '@/redux/crud/actions';
 import { selectListItems } from '@/redux/crud/selectors';
-
 import uniqueId from '@/utils/uinqueId';
 import useResponsiveTable from '@/hooks/useResponsiveTable';
-
 export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
   let { entity, dataTableColumns, DATATABLE_TITLE } = config;
   // console.log('entity from components->dataTable', entity);
@@ -64,6 +62,28 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
 
     },
   ];
+  
+
+  let key1='list'
+  let key2 = 'action'
+  const actionItems = [
+    {
+      key: '1',
+      label: 'Manage tags',
+    },
+    {
+      key: '2',
+      label: 'Mass delete',
+    },
+    {
+      key: '3',
+      label: 'Mass email',
+    },
+    {
+      key: '4',
+      label: 'Draft',
+    },
+  ];
 
   const [item,setItem] = useState('');
   const menu = (
@@ -79,6 +99,22 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
       </Menu>
     </div>
   );
+
+   const ActionMenu = (
+     <div>
+       <Menu style={{ marginLeft: '-60px' }}>
+         {actionItems.map((actionItems) => (
+           <Menu.Item
+             onClick={(e) => setItem(e.domEvent.target.firstElementChild.childNodes[0].innerHTML)}
+             key={ViewItems.key}
+           >
+             {/* <span style={{ marginRight: '10px' }}>{ViewItems.Icon}</span> */}
+             {actionItems.label}
+           </Menu.Item>
+         ))}
+       </Menu>
+     </div>
+   );
   console.log(tableHeader.current)
 
   return (
@@ -96,7 +132,7 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
                 onClick={(e) => e.preventDefault()}
               >
                 <Space>
-                <span dangerouslySetInnerHTML={{ __html: item }} />
+                  <span dangerouslySetInnerHTML={{ __html: item }} />
                   <DownOutlined />
                 </Space>
               </a>
@@ -108,12 +144,25 @@ export default function DataTable({ config, DropDownRowMenu, AddNewItem }) {
             >
               Refresh
             </Button>,
+            <Dropdown  overlay={ActionMenu} trigger={['click']}>
+              <a
+                style={{ marginRight: '5px' }}
+                className="ant-dropdown-link"
+                onClick={(e) => e.preventDefault()}
+              >
+                <Space>
+                  <span>Action</span>
+                  <DownOutlined />
+                </Space>
+              </a>
+            </Dropdown>,
             <AddNewItem key={`${uniqueId()}`} config={config} />,
           ]}
           style={{
             padding: '0px 20px 0px',
           }}
-        ></PageHeader>
+        >
+        </PageHeader>
       </div>
       <Table
         columns={tableColumns}
