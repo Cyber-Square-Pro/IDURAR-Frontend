@@ -119,13 +119,6 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   };
 
   useEffect(() => {
-    return () => {
-      // Reset pagination state when component unmounts
-      setPagination({ current: 1, pageSize: 5 });
-    };
-  }, []);
-
-  useEffect(() => {
     dispatch(crud.list({ entity }));
   }, []);
 
@@ -292,12 +285,8 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
           </Dropdown>
         </div>
       </div>
-      {viewType === 'list' && (
-        <ListView pagination={pagination} items={items} DropDownRowMenu={DropDownRowMenu} />
-      )}
-      {viewType === 'tile' && (
-        <TileView pagination={pagination} items={items} DropDownRowMenu={DropDownRowMenu} />
-      )}
+      {viewType === 'list' && <ListView items={items} DropDownRowMenu={DropDownRowMenu} />}
+      {viewType === 'tile' && <TileView items={items} DropDownRowMenu={DropDownRowMenu} />}
       {viewType !== 'list' && viewType !== 'tile' && (
         <TableView config={config} items={items} DropDownRowMenu={DropDownRowMenu} />
       )}

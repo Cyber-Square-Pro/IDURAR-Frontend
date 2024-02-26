@@ -6,10 +6,6 @@ export const list = [
     code: '65276528',
     active: true,
     catogery: 'none',
-    sales_start_date: '23/10/24',
-    support_start_date: '23/12/24',
-    sales_end_date: '23/10/24',
-    support_end_date: '23/12/24',
   },
   {
     owner: 'Abhi',
@@ -18,10 +14,6 @@ export const list = [
     code: '92276528',
     active: true,
     catogery: 'none',
-    sales_start_date: '23/10/24',
-    support_start_date: '23/12/24',
-    sales_end_date: '23/10/24',
-    support_end_date: '23/12/24',
   },
   {
     owner: 'Rahul',
@@ -30,10 +22,6 @@ export const list = [
     code: '82276528',
     active: false,
     catogery: 'none',
-    sales_start_date: '23/10/24',
-    support_start_date: '23/12/24',
-    sales_end_date: '23/10/24',
-    support_end_date: '23/12/24',
   },
   {
     owner: 'John',
@@ -42,10 +30,6 @@ export const list = [
     code: '34276528',
     active: true,
     catogery: 'none',
-    sales_start_date: '23/10/24',
-    support_start_date: '23/12/24',
-    sales_end_date: '23/10/24',
-    support_end_date: '23/12/24',
   },
   {
     owner: 'Sam',
@@ -54,10 +38,6 @@ export const list = [
     code: '12276528',
     active: false,
     catogery: 'none',
-    sales_start_date: '23/10/24',
-    support_start_date: '23/12/24',
-    sales_end_date: '23/10/24',
-    support_end_date: '23/12/24',
   },
   {
     owner: 'Simon',
@@ -66,11 +46,5 @@ export const list = [
     code: '64876528',
     active: false,
     catogery: 'none',
-    sales_start_date: '23/10/24',
-    support_start_date: '23/12/24',
-    sales_end_date: '23/10/24',
-    support_end_date: '23/12/24',
   },
 ];
-
-export const items = JSON.stringify(list);
