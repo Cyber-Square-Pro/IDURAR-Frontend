@@ -22,7 +22,7 @@ const Notifications = () => {
       <div className="pad10">
         <p className="strong">Notifications</p>
         <Button type="text" shape="circle" className="del-notif">
-          <DeleteOutlined />
+        <DeleteOutlined className='red-delete-icon'/>
         </Button>
       </div>
       <div className="line"></div>
@@ -38,7 +38,7 @@ const Notifications = () => {
               shape="circle"
               onClick={() => deleteNotification(notification.id)}
             >
-              <DeleteOutlined />
+              <DeleteOutlined className='red-delete-icon'/>
             </Button>
           </div>
         ))}

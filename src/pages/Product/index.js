@@ -1,105 +1,88 @@
-  import dayjs from 'dayjs';
-  import { Tag } from 'antd';
-  import React from 'react';
+import dayjs from 'dayjs';
+import { Tag } from 'antd';
+import React from 'react';
 
-  import CrudModule from '@/modules/CrudModule';
-  import LeadForm from '@/forms/LeadForm';
+import CrudModule from '@/modules/ProductCrudModule/index';
+import LeadForm from '@/forms/LeadForm';
 
-  import configPage from './config/index';
+import configPage from './config/index';
 
-  export default function Product() {
-    const searchConfig = {
-      displayLabels: ['firstname', 'company'],
-      searchFields: 'firstname,company',
-      outputValue: '_id',
-    };
-    const entityDisplayLabels = ['number', 'company'];
+export default function Product() {
+  const searchConfig = {
+    displayLabels: ['firstname', 'company'],
+    searchFields: 'firstname,company',
+    outputValue: '_id',
+  };
+  const entityDisplayLabels = ['number', 'company'];
 
-    const readColumns = [
-      {
-        title: 'First Name',
-        dataIndex: 'firstName',
-      },
+  const readColumns = [
+    {
+      title: 'Product Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Product Code',
+      dataIndex: 'code',
+    },
+    {
+      title: 'Product Owner',
+      dataIndex: 'owner',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'phone',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+    },
+  ];
 
-      {
-        title: 'Last Name',
-        dataIndex: 'lastName',
+  const dataTableColumns = [
+    {
+      title: 'Product Owner',
+      dataIndex: ['owner'],
+    },
+    {
+      title: 'Product Name',
+      dataIndex: ['name'],
+    },
+    {
+      title: 'Product Code',
+      dataIndex: ['code'],
+    },
+    {
+      title: 'Status',
+      dataIndex: 'active',
+      render: (active) => {
+        let color = active === true ? 'green' : 'red';
+        let tag = active === true ? 'ACTIVE' : 'INACTIVE';
+        return <Tag color={color}>{tag}</Tag>;
       },
-      {
-        title: 'Company',
-        dataIndex: 'company',
-      },
-      {
-        title: 'Email',
-        dataIndex: 'email',
-      },
-      {
-        title: 'Phone',
-        dataIndex: 'phone',
-      },
-      {
-        title: 'Status',
-        dataIndex: 'status',
-      },
-    ];
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'created',
+      render: (date) => dayjs(date).format('DD/MM/YYYY'),
+    },
+  ];
 
-    const dataTableColumns = [
-      {
-        title: 'First Name',
-        dataIndex: ['firstName'],
-      },
-      {
-        title: 'Last Name',
-        dataIndex: ['lastName'],
-      },
-      {
-        title: 'Company',
-        dataIndex: ['company'],
-      },
-      {
-        title: 'Email',
-        dataIndex: ['email'],
-      },
-      {
-        title: 'Phone',
-        dataIndex: ['phone'],
-      },
-      {
-        title: 'Status',
-        dataIndex: 'status',
-        render: (status) => {
-          let color =
-            status === 'new'
-              ? 'cyan'
-              : status === 'reached'
-              ? 'blue'
-              : status === 'interested'
-              ? 'green'
-              : status === 'not interested'
-              ? 'orange'
-              : 'red';
-          return <Tag color={color}>{status && status.toUpperCase()}</Tag>;
-        },
-      },
-      {
-        title: 'Created At',
-        dataIndex: 'created',
-        render: (date) => dayjs(date).format('DD/MM/YYYY'),
-      },
-    ];
-
-    const config = {
-      ...configPage,
-      readColumns,
-      dataTableColumns,
-      searchConfig,
-      entityDisplayLabels,
-    };
-    return (
-      <CrudModule
-        // createForm={<LeadForm />}
-        // updateForm={<LeadForm isUpdateForm={true} />}
-          config={config}
-      />
-    );
-  }
+  const config = {
+    ...configPage,
+    readColumns,
+    dataTableColumns,
+    searchConfig,
+    entityDisplayLabels,
+  };
+  return (
+    <CrudModule
+      createForm={<LeadForm />}
+      updateForm={<LeadForm isUpdateForm={true} />}
+      config={config}
+    />
+  );
+}

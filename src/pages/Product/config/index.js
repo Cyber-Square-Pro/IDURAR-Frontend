@@ -5,7 +5,7 @@ const Labels = {
   dataTableTitle: 'Product List',
   ADD_NEW_ENTITY: 'Add New Product',
   DATATABLE_TITLE: 'Product List',
-  ENTITY_NAME: 'Lead',
+  ENTITY_NAME: 'Product',
   CREATE_ENTITY: 'Save Lead',
   UPDATE_ENTITY: 'Update Lead',
 };
