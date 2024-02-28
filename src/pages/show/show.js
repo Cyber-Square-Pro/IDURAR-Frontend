@@ -3,7 +3,7 @@ import { Breadcrumb, Layout, Menu, Button, Card, Input, Dropdown, message, Colla
 import { UserOutlined } from '@ant-design/icons';
 import './style.css';
 import { useState } from 'react';
-import { Select, Space, Avatar } from 'antd';
+import { Select, Space, Avatar, Tabs, Timeline } from 'antd';
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 
@@ -83,7 +83,6 @@ const Show = () => {
           }}
         />
       </Header>{' '}
-      <br />
       <Content
         style={{
           padding: '0 48px',
@@ -95,295 +94,324 @@ const Show = () => {
             padding: 24,
           }}
         >
-          <Card
-            style={{ marginTop: 16, width: '100%' }}
-            className="shadow p-2 mb-5 bg-white rounded"
-          >
-            <table border={0} cellPadding={5} cellSpacing={10}>
-              <tr>
-                <td>Lead Owner</td>
-                <td>
-                  <input className="inputField" type="text" />
-                </td>
-              </tr>
-              <tr>
-                <td>Email</td>
-                <td>
-                  <input className="inputField" type="text" />
-                </td>
-              </tr>
-              <tr>
-                <td>Phone</td>
-                <td>
-                  <input className="inputField" type="text" />
-                </td>
-              </tr>
-              <tr>
-                <td>Mobile</td>
-                <td>
-                  <input className="inputField" type="text" />
-                </td>
-              </tr>
-              <tr>
-                <td>Lead Status</td>
-                <td>
-                  <input className="inputField" type="text" />
-                </td>
-              </tr>
-            </table>
-          </Card>
-          <br />
-
-          <Collapse
-            bordered={false}
-            className="shadow p-2 mb-5 bg-white rounded"
-            style={{ marginTop: 16, width: '100%', background: 'white' }}
-          >
-            <Collapse.Panel header="Show Details">
-              <table border={0} cellPadding={5} cellSpacing={10}>
-                <tr>
-                  <th className="table-header">Lead Information</th>
-                </tr>
-                <tr>
-                  <td>Lead Owner</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                  <td>Company</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Title</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                  <td>Lead Name</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Phone</td>
-                  <td>
-                    <input className="inputField-2" type="number" />
-                  </td>
-                  <td>Email</td>
-                  <td>
-                    <input className="inputField-2" type="email" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Mobile</td>
-                  <td>
-                    <input className="inputField-2" type="number" />
-                  </td>
-                  <td>Fax</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Lead Source</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                  <td>Website</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Industry</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                  <td>Lead Status</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Annual Revenue</td>
-                  <td>
-                    <input className="inputField-2" type="number" />
-                  </td>
-                  <td>No. of Employees</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Email Opt Out</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                  <td>Rating</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Modified By</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                  <td>Created By</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Skype ID</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                  <td>Secondary Email</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Twitter</td>
-                  <td>
-                    <input className="inputField-2" type="text" />
-                  </td>
-                </tr>
-              </table>
+          <Tabs defaultActiveKey="Overview">
+            <Tabs.TabPane tab="Overview" key="Overview" className="overview">
+              <Card
+                style={{ marginTop: 16, width: '100%' }}
+                className="shadow p-2 mb-5 bg-white rounded"
+              >
+                <table border={0} cellPadding={5} cellSpacing={10}>
+                  <tr>
+                    <td>Lead Owner</td>
+                    <td>
+                      <input className="inputField" type="text" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>
+                      <input className="inputField" type="text"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Phone</td>
+                    <td>
+                      <input className="inputField" type="text"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Mobile</td>
+                    <td>
+                      <input className="inputField" type="text"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Lead Status</td>
+                    <td>
+                      <input className="inputField" type="text" />
+                    </td>
+                  </tr>
+                </table>
+              </Card>
               <br />
-            </Collapse.Panel>
-          </Collapse>
 
-          <Card
-            style={{
-              marginTop: 16,
-            }}
-            type="white"
-            title="Notes"
-            extra={
-              <Space wrap>
-                <Select
-                  defaultValue="Recent First"
-                  style={{
-                    width: 120,
-                  }}
-                  onChange={handleChange}
-                  options={[
-                    {
-                      value: 'Recent First',
-                      label: 'Recent First',
-                    },
-                    {
-                      value: 'Recent Last',
-                      label: 'Recent Last',
-                    },
-                  ]}
-                />
-              </Space>
-            }
-          >
-            <div className="notes bg-white rounded">
-              <div className="notediv">
-                <TextArea placeholder="Enter your text here" rows={5}></TextArea>
+              <Collapse
+                bordered={false}
+                className="shadow p-2 mb-5 bg-white rounded"
+                style={{ marginTop: 16, width: '100%', background: 'white' }}
+              >
+                <Collapse.Panel header="Show Details">
+                  <table border={0} cellPadding={5} cellSpacing={10}>
+                    <tr>
+                      <th className="table-header">Lead Information</th>
+                    </tr>
+                    <tr>
+                      <td>Lead Owner</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                      <td>Company</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                    </tr>
 
-                {showTitleField && (
-                  <Input
-                    style={{
-                      width: '50%',
-                      marginTop: '5px',
-                      position: 'absolute',
-                      top: '4px',
-                      left: '5px',
-                    }}
-                    type="text"
-                    placeholder="Title"
-                  />
-                )}
+                    <tr>
+                      <td>Title</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                      <td>Lead Name</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                    </tr>
 
-                <Input
-                  className="noteinput"
-                  type="text"
-                  placeholder="Add a title"
-                  onClick={handleInputClick}
-                />
-                <div className="notebtn">
-                  <Button type="primary">Save</Button>
-                  <Button type="default" style={{ marginLeft: '5px' }}>
-                    Cancel
-                  </Button>
+                    <tr>
+                      <td>Phone</td>
+                      <td>
+                        <input className="inputField-2" type="number" />
+                      </td>
+                      <td>Email</td>
+                      <td>
+                        <input className="inputField-2" type="email" />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Mobile</td>
+                      <td>
+                        <input className="inputField-2" type="number" />
+                      </td>
+                      <td>Fax</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Lead Source</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                      <td>Website</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Industry</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                      <td>Lead Status</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Annual Revenue</td>
+                      <td>
+                        <input className="inputField-2" type="number" />
+                      </td>
+                      <td>No. of Employees</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Email Opt Out</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                      <td>Rating</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Modified By</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                      <td>Created By</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Skype ID</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                      <td>Secondary Email</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Twitter</td>
+                      <td>
+                        <input className="inputField-2" type="text" />
+                      </td>
+                    </tr>
+                  </table>
+                  <br />
+                </Collapse.Panel>
+              </Collapse>
+
+              <Card
+                style={{
+                  marginTop: 16,
+                }}
+                type="white"
+                title="Notes"
+                extra={
+                  <Space wrap>
+                    <Select
+                      defaultValue="Recent First"
+                      style={{
+                        width: 120,
+                      }}
+                      onChange={handleChange}
+                      options={[
+                        {
+                          value: 'Recent First',
+                          label: 'Recent First',
+                        },
+                        {
+                          value: 'Recent Last',
+                          label: 'Recent Last',
+                        },
+                      ]}
+                    />
+                  </Space>
+                }
+              >
+                <div className="notes bg-white rounded">
+                  <div className="notediv">
+                    <TextArea placeholder="Enter your text here" rows={5}></TextArea>
+
+                    {showTitleField && (
+                      <Input
+                        style={{
+                          width: '50%',
+                          marginTop: '5px',
+                          position: 'absolute',
+                          top: '4px',
+                          left: '5px',
+                        }}
+                        type="text"
+                        placeholder="Title"
+                      />
+                    )}
+
+                    <Input
+                      className="noteinput"
+                      type="text"
+                      placeholder="Add a title"
+                      onClick={handleInputClick}
+                    />
+                    <div className="notebtn">
+                      <Button type="primary">Save</Button>
+                      <Button type="default" style={{ marginLeft: '5px' }}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </Card>
-          <br />
+              </Card>
+              <br />
 
-          <Card
-            className="shadow p-2 mb-5 bg-white rounded"
-            type="white"
-            title="Attachment"
-            extra={
-              <Space wrap>
-                <Select
-                  defaultValue="Attach"
-                  style={{
-                    width: 120,
-                  }}
-                  onChange={handleChange}
-                  options={[
-                    {
-                      value: 'Upload File',
-                      label: 'Upload File',
-                    },
-                    {
-                      value: 'Documents',
-                      label: 'Documents',
-                    },
-                    {
-                      value: 'Link (URL)',
-                      label: 'Link (URL)',
-                    },
-                    {
-                      value: 'disabled',
-                      label: 'Disabled',
-                      disabled: true,
-                    },
-                  ]}
-                />
-              </Space>
-            }
-          >
-            NO ATTACHMENT
-          </Card>
+              <Card
+                className="shadow p-2 mb-5 bg-white rounded"
+                type="white"
+                title="Attachment"
+                extra={
+                  <Space wrap>
+                    <Select
+                      defaultValue="Attach"
+                      style={{
+                        width: 120,
+                      }}
+                      onChange={handleChange}
+                      options={[
+                        {
+                          value: 'Upload File',
+                          label: 'Upload File',
+                        },
+                        {
+                          value: 'Documents',
+                          label: 'Documents',
+                        },
+                        {
+                          value: 'Link (URL)',
+                          label: 'Link (URL)',
+                        },
+                        {
+                          value: 'disabled',
+                          label: 'Disabled',
+                          disabled: true,
+                        },
+                      ]}
+                    />
+                  </Space>
+                }
+              >
+                NO ATTACHMENT
+              </Card>
 
-          <br />
+              <br />
 
-          <Card
-            style={{
-              width: '100%',
-            }}
-            className="shadow p-2 mb-5 bg-white rounded"
-            title="Emails"
-            extra={
-              <Button type="wheat" style={{ color: 'light blue' }}>
-                Compose Email
-              </Button>
-            }
-            tabList={tabList}
-            activeTabKey={activeTabKey1}
-            onTabChange={onTab1Change}
-          >
-            {contentList[activeTabKey1]}
-          </Card>
-          <br />
+              <Card
+                style={{
+                  width: '100%',
+                }}
+                className="shadow p-2 mb-5 bg-white rounded"
+                title="Emails"
+                extra={
+                  <Button type="wheat" style={{ color: 'light blue' }}>
+                    Compose Email
+                  </Button>
+                }
+                tabList={tabList}
+                activeTabKey={activeTabKey1}
+                onTabChange={onTab1Change}
+              >
+                {contentList[activeTabKey1]}
+              </Card>
+              <br />
+            </Tabs.TabPane>
+
+            {/* Timeline Tab */}
+            <Tabs.TabPane tab="Timeline">
+              <Card
+                style={{ marginTop: 16, width: '100%' }}
+                className="shadow p-2 mb-5 bg-white rounded"
+                type="white"
+                title="Upcoming Actions"
+              >
+                No Upcoming Actions
+              </Card>
+              <br />
+              <Card
+                style={{ marginTop: 16, width: '100%' }}
+                className="shadow p-2 mb-5 bg-white rounded"
+                type="white"
+                title="History"
+              >
+                <Timeline>
+                  <Timeline.Item>
+                    Lead image uploaded <br/> by Fathima Nihala Feb 10 2024 
+                  </Timeline.Item>
+                </Timeline>
+              </Card>
+            </Tabs.TabPane>
+          </Tabs>
         </div>
       </Content>
     </Layout>
