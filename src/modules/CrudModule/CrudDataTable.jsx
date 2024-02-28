@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { Button, Menu } from 'antd';
 import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -8,6 +7,7 @@ import { selectItemById } from '@/redux/crud/selectors';
 import { useCrudContext } from '@/context/crud';
 import uniqueId from '@/utils/uinqueId';
 import DataTable from '@/components/DataTable';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function AddNewItem({ config }) {
   const { crudContextAction } = useCrudContext();
@@ -29,12 +29,16 @@ function DropDownRowMenu({ row }) {
   const { crudContextAction } = useCrudContext();
   const { panel, collapsedBox, modal, readBox, editBox } = crudContextAction;
   const item = useSelector(selectItemById(row._id));
+  const history = useHistory();
+
   const Show = () => {
     dispatch(crud.currentItem({ data: item }));
-    panel.open();
-    collapsedBox.open();
-    readBox.open();
+    history.push('/show'); // Navigate to "/show" page
   };
+    // panel.open();
+    // collapsedBox.open();
+    // readBox.open();
+  
   function Edit() {
     dispatch(crud.currentItem({ data: item }));
     dispatch(crud.currentAction({ actionType: 'update', data: item }));
