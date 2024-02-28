@@ -19,11 +19,14 @@ import {
   MenuOutlined,
   UserAddOutlined,
   FileOutlined,
+  ShoppingCartOutlined,
 } from '@ant-design/icons';
 
 const SIDEBAR_MENU = [
   { key: '/', icon: <DashboardOutlined />, title: 'Dashboard' },
   { key: '/lead', icon: <UserAddOutlined />, title: 'Lead' },
+  // to add a new sidebar menu called product
+  { key: '/product', icon: <ShoppingCartOutlined />, title: 'Product' },
   { key: '/offer', icon: <FileOutlined />, title: 'Offer' },
   { key: '/customer', icon: <CustomerServiceOutlined />, title: 'Customer' },
   { key: '/invoice', icon: <FileTextOutlined />, title: 'Invoice' },
