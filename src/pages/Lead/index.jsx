@@ -6,6 +6,7 @@ import CrudModule from '@/modules/CrudModule';
 import LeadForm from '@/forms/LeadForm';
 
 import configPage from './config';
+import Show from '../show/show';
 
 
 export default function Lead() {
@@ -103,7 +104,6 @@ export default function Lead() {
       createForm={<LeadForm />}
       updateForm={<LeadForm isUpdateForm={true} />}
       config={config}
-      
     />
     </>
   );
