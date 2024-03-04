@@ -31,7 +31,6 @@ export default function AutoCompleteAsync({
     500,
     [valToSearch]
   );
-
   const asyncSearch = (options) => {
     return request.search({ entity, options });
   };

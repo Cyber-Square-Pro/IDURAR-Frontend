@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Dropdown, Button, PageHeader, Table, Descriptions, Pagination, Menu } from 'antd';
+import { Dropdown, Button, PageHeader, Table, Descriptions, Pagination, Menu, Tag } from 'antd';
+import { items, list } from '@/Testing/ProductList';
 import {
   EllipsisOutlined,
   DownOutlined,
@@ -13,7 +14,9 @@ import { selectListItems } from '@/redux/crud/selectors';
 import { crud } from '@/redux/crud/actions';
 import uniqueId from '@/utils/uinqueId';
 import useResponsiveTable from '@/hooks/useResponsiveTable';
-import TileView from '../TileView';
+import TileView from '../ProductDataTable/Views/TileView/index';
+import ListView from './Views/ListView';
+import TableView from './Views/TableView';
 
 const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   let { entity, ENTITY_NAME, dataTableColumns, DATATABLE_TITLE } = config;
@@ -32,48 +35,87 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
 
   const { result: listResult, isLoading: listIsLoading } = useSelector(selectListItems);
 
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
-
-  const {items} = listResult;
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 5 });
+  const [allItems, setAllItems] = useState(list);
+  const [items, setItems] = useState(list);
 
   const [sortData, setSortByData] = useState('None');
   const [sortByKey, setSortByKey] = useState('Asc');
 
   const [viewType, setViewType] = useState('table'); // Default view type
-  const [selectedItem, setSelectedItem] = useState(null);
 
   const dispatch = useDispatch();
+
+  const filterItems = (list, prop, order) => {
+    let newList = [...list];
+    if (order === 'Asc') {
+      newList.sort((a, b) => {
+        if (a[prop] < b[prop]) {
+          return -1;
+        }
+        if (a[prop] > b[prop]) {
+          return 1;
+        }
+        return 0;
+      });
+    } else if (order === 'Desc') {
+      newList.sort((a, b) => {
+        if (a[prop] < b[prop]) {
+          return 1;
+        }
+        if (a[prop] > b[prop]) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+    return newList;
+  };
 
   const handleDataTableLoad = useCallback((pagination) => {
     const options = {
       page: pagination.current || 1,
       items: pagination.pageSize || 10,
     };
-    dispatch(crud.list({ entity, options }));
   }, []);
 
+  const limitingItems = (page, pageSize) => {
+    const lastPostIndex = page * pagination.pageSize;
+    const firstPostIndex = lastPostIndex - pagination.pageSize;
+    setItems(allItems.slice(firstPostIndex, lastPostIndex));
+  };
   const handlePaginationChange = (page, pageSize) => {
     setPagination({ ...pagination, current: page });
+    limitingItems(page);
   };
+  useEffect(() => {
+    limitingItems(pagination.current);
+  }, []);
 
   const handlePageSizeChange = ({ key }) => {
-    setPagination({ ...pagination, current: 1, pageSize: parseInt(key) });
+    setPagination((prevPagination) => {
+      const newPageSize = parseInt(key);
+      const newPagination = { ...prevPagination, pageSize: newPageSize };
+      const lastPostIndex = newPagination.current * newPageSize;
+      const firstPostIndex = lastPostIndex - newPageSize;
+      setItems(allItems.slice(firstPostIndex, lastPostIndex));
+      return newPagination;
+    });
   };
-
   const handleSortByData = ({ key }) => {
     setSortByData(key);
+    let property = key.toLowerCase();
+    setItems(filterItems(allItems, property, sortByKey));
   };
 
   const handleSortKey = ({ key }) => {
     setSortByKey(key);
+    let property = sortData.toLowerCase();
+    setItems(filterItems(allItems, property, key));
   };
 
   const handleViewTypeChange = ({ key }) => {
     setViewType(key);
-  };
-
-  const handleRowClick = (row) => {
-    setSelectedItem(row);
   };
 
   useEffect(() => {
@@ -87,6 +129,7 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
 
   const pageSizeMenu = (
     <Menu onClick={handlePageSizeChange}>
+      <Menu.Item key="5">5-Records per page</Menu.Item>
       <Menu.Item key="10">10-Records per page</Menu.Item>
       <Menu.Item key="20">20-Records per page</Menu.Item>
       <Menu.Item key="30">30-Records per page</Menu.Item>
@@ -98,8 +141,8 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   const sortByData = (
     <Menu onClick={handleSortByData}>
       <Menu.Item key="Name">Name</Menu.Item>
-      <Menu.Item key="Email">Email</Menu.Item>
-      <Menu.Item key="Course">Course</Menu.Item>
+      <Menu.Item key="Owner">Owner</Menu.Item>
+      <Menu.Item key="Code">Code</Menu.Item>
     </Menu>
   );
 
@@ -113,7 +156,7 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   const importOptions = (
     <Menu>
       <Menu.Item key="notes">Import Notes</Menu.Item>
-      <Menu.Item key="leads">Import Leads</Menu.Item>
+      <Menu.Item key="leads">Import Products</Menu.Item>
     </Menu>
   );
   const importActions = (
@@ -140,64 +183,6 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
     </Menu>
   );
 
-  const ListView = ({ items }) => {
-    return (
-      <div style={{ padding: '10px 0' }}>
-        <table
-          style={{
-            width: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'left',
-          }}
-        >
-          <thead style={{ backgroundColor: '#FAFAFA', height: '50px' }}>
-            <tr>
-              <th style={{ padding: '12px' }}>
-                <b>Serial No.</b>
-              </th>
-              <th>
-                <b>First Name</b>
-              </th>
-              <th>
-                <b>Last Name</b>
-              </th>
-              <th>
-                <b>Company</b>
-              </th>
-              <th>
-                <b>Email</b>
-              </th>
-              <th>
-                <b>Phone</b>
-              </th>
-              <th>
-                <b>Status</b>
-              </th>
-              <th> </th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item, index) => (
-              <tr key={item._id} style={{ border: 'none', borderBottom: '1px solid #e8e8e8' }}>
-                <td style={{ padding: '12px' }}>{index + 1}</td>
-                <td>{item.firstName}</td>
-                <td>{item.lastName}</td>
-                <td>{item.company}</td>
-                <td>{item.email}</td>
-                <td>{item.phone}</td>
-                <td style={{ textTransform: 'uppercase' }}>{item.status}</td>
-                <td>
-                  {' '}
-                  <EllipsisOutlined style={{ fontSize: '25px', fontWeight: '700' }} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
   return (
     <>
       <div ref={tableHeader}>
@@ -271,7 +256,7 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
             style={{ marginLeft: '20px' }}
             current={pagination.current}
             pageSize={pagination.pageSize}
-            total={items.length}
+            total={allItems.length}
             onChange={handlePaginationChange}
             defaultCurrent={2}
           />
@@ -300,43 +285,10 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
           </Dropdown>
         </div>
       </div>
-      {viewType === 'list' && <ListView items={items} />}
+      {viewType === 'list' && <ListView items={items} DropDownRowMenu={DropDownRowMenu} />}
       {viewType === 'tile' && <TileView items={items} DropDownRowMenu={DropDownRowMenu} />}
       {viewType !== 'list' && viewType !== 'tile' && (
-        <Table
-          columns={tableColumns}
-          rowKey={(item) => item._id}
-          dataSource={items}
-          pagination={false}
-          loading={listIsLoading}
-          onChange={handleDataTableLoad}
-          expandable={
-            expandedRowData.length
-              ? {
-                  expandedRowRender: (record) => (
-                    <Descriptions title="" bordered column={1}>
-                      {expandedRowData.map((item, index) => {
-                        return (
-                          <Descriptions.Item key={index} label={item.title}>
-                            {item.render?.(record[item.dataIndex])?.children
-                              ? item.render?.(record[item.dataIndex])?.children
-                              : item.render?.(record[item.dataIndex])
-                              ? item.render?.(record[item.dataIndex])
-                              : Array.isArray(item.dataIndex)
-                              ? record[item.dataIndex[0]]?.[item.dataIndex[1]]
-                              : record[item.dataIndex]}
-                          </Descriptions.Item>
-                        );
-                      })}
-                    </Descriptions>
-                  ),
-                }
-              : null
-          }
-          onRow={(record) => ({
-            onClick: () => handleRowClick(record),
-          })}
-        />
+        <TableView config={config} items={items} DropDownRowMenu={DropDownRowMenu} />
       )}
     </>
   );

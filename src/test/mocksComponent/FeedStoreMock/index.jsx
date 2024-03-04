@@ -8,6 +8,5 @@ export default function FeedStoreMock({ method, data }) {
   useEffect(() => {
     dispatch(method({ data }));
   }, [data]);
-
   return null;
 }
