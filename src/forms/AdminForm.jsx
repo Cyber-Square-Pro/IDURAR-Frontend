@@ -12,6 +12,7 @@ export default function AdminForm({ isUpdateForm = false }) {
             required: true,
             message: 'Please input your Name!',
           },
+          { whitespace: true, message: 'This field cannot be empty!' },
         ]}
       >
         <Input autoComplete="off" />
@@ -22,8 +23,9 @@ export default function AdminForm({ isUpdateForm = false }) {
         rules={[
           {
             required: true,
-            message: 'Please input your surname!',
+            message: 'Please input your Surname!',
           },
+          { whitespace: true, message: 'This field cannot be empty!' },
         ]}
       >
         <Input autoComplete="off" />
@@ -37,8 +39,8 @@ export default function AdminForm({ isUpdateForm = false }) {
             message: 'Please input your E-mail!',
           },
           {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
+            pattern: new RegExp(/^[A-Za-z][\w\.-]+@([\w-]+\.)+[\w-]{2,4}$/),
+            message: 'Please enter a valid E-mail!',
           },
         ]}
       >

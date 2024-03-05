@@ -16,7 +16,7 @@ export default function PaymentInvoiceForm({ maxAmount = null, isUpdateForm = fa
         rules={[
           {
             required: true,
-          },
+          },     
         ]}
         style={{ width: '50%', float: 'left', paddingRight: '20px' }}
       >

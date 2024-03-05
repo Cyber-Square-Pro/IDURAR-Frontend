@@ -12,11 +12,14 @@ export default function LeadForm() {
         rules={[
           {
             required: true,
-            message: 'Please input First name!',
+            message: 'Please Input Your First Name!',
+          },
+          { whitespace: true,
+            message: 'First Name cannot be empty!',
           },
         ]}
       >
-        <Input />
+        <Input autoComplete='off' />
       </Form.Item>
 
       <Form.Item
@@ -25,11 +28,14 @@ export default function LeadForm() {
         rules={[
           {
             required: true,
-            message: 'Please input Last name!',
+            message: 'Please Input Your Last Name!',
+          },
+          { whitespace: true,
+            message: 'Last Name cannot be empty!', 
           },
         ]}
       >
-        <Input />
+        <Input autoComplete='off' />
       </Form.Item>
 
       <Form.Item
@@ -38,11 +44,14 @@ export default function LeadForm() {
         rules={[
           {
             required: true,
-            message: 'Please input Email!',
+            message: 'Please Input Your Email!',
+          },
+          { pattern: new RegExp(/^[A-Za-z][\w\.-]+@([\w-]+\.)+[\w-]{2,4}$/) ,
+            message: 'Please enter a valid Email!' ,   
           },
         ]}
       >
-        <Input />
+        <Input autoComplete='off' />
       </Form.Item>
 
       <Form.Item
@@ -51,11 +60,15 @@ export default function LeadForm() {
         rules={[
           {
             required: true,
-            message: 'Please input Phone Number!',
+            message: 'Please Input Your Phone Number!',
+          },
+          { 
+            pattern: new RegExp(/^(((\+){1}91){1})? ?-?[98765]{1}[0-9]{9}$/),
+            message: 'Please enter a valid phone number!', 
           },
         ]}
       >
-        <Input type="tel" />
+        <Input type="tel" autoComplete='off' />
       </Form.Item>
 
       <Form.Item
@@ -64,11 +77,14 @@ export default function LeadForm() {
         rules={[
           {
             required: true,
-            message: 'Please input Lead Company!',
+            message: 'Please Input Your Lead Company!',
+          },
+          { whitespace: true,
+            message: 'Lead Company cannot be empty!', 
           },
         ]}
       >
-        <Input />
+        <Input autoComplete='off' />
       </Form.Item>
 
       <Form.Item
@@ -77,28 +93,31 @@ export default function LeadForm() {
         rules={[
           {
             required: true,
-            message: 'Please input the Job Title!',
+            message: 'Please Input Your Job Title!',
+          },
+          { whitespace: true,
+            message: 'Job Title cannot be empty!', 
           },
         ]}
       >
-        <Input />
+        <Input autoComplete='off' />
       </Form.Item>
 
       <Form.Item label="Address" name="address">
-        <Input />
+        <Input autoComplete='off' />
       </Form.Item>
 
       <Form.Item label="Country" name="country">
-        <Input />
+        <Input autoComplete='off' />
       </Form.Item>
 
       <Form.Item
-        label="status"
+        label="Status"
         name="status"
         rules={[
           {
             required: false,
-            message: 'Please input Lead status!',
+            message: 'Please Input Your Lead status!',
           },
         ]}
         initialValue={'new'}
@@ -114,11 +133,11 @@ export default function LeadForm() {
       </Form.Item>
 
       <Form.Item label="Note" name="note">
-        <Input />
+        <Input autoComplete='off' />
       </Form.Item>
 
       <Form.Item label="Source" name="source">
-        <Input placeholder="ex: linkedin, website, ads..." />
+        <Input placeholder="ex: linkedin, website, ads..." autoComplete='off' />
       </Form.Item>
     </>
   );

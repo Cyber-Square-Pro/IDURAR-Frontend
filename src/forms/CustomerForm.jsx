@@ -19,15 +19,15 @@ export default function CustomerForm({ isUpdateForm = false }) {
         rules={[
           {
             required: true,
-            message: 'Please input your company name!',
+            message: 'Please input your Company name!',
           },
           {
             validator: validateEmptyString,
-            message: 'Please input valid value!',
+            message: 'Please input a valid value!',
           },
         ]}
       >
-        <Input />
+        <Input autoComplete="off" />
       </Form.Item>
       <Form.Item
         label="Surname"
@@ -35,11 +35,11 @@ export default function CustomerForm({ isUpdateForm = false }) {
         rules={[
           {
             required: true,
-            message: 'Please input your surname!',
+            message: 'Please input your Surname!',
           },
           {
             validator: validateEmptyString,
-            message: 'Please input valid value!',
+            message: 'Please input a valid value!',
           },
         ]}
         style={{
@@ -48,7 +48,7 @@ export default function CustomerForm({ isUpdateForm = false }) {
           paddingRight: '5px',
         }}
       >
-        <Input />
+        <Input autoComplete="off" />
       </Form.Item>
       <Form.Item
         label="Name"
@@ -56,11 +56,11 @@ export default function CustomerForm({ isUpdateForm = false }) {
         rules={[
           {
             required: true,
-            message: 'Please input your manager name!',
+            message: 'Please input your Manager name!',
           },
           {
             validator: validateEmptyString,
-            message: 'Please input valid value!',
+            message: 'Please input a valid value!',
           },
         ]}
         style={{
@@ -69,48 +69,40 @@ export default function CustomerForm({ isUpdateForm = false }) {
           paddingLeft: '5px',
         }}
       >
-        <Input />
+        <Input autoComplete="off" />
       </Form.Item>
 
       <Form.Item
         name="phone"
-        label="Phone"
+        label="Phone Number"
         rules={[
           {
             required: true,
-            message: 'Please input your phone!',
+            message: 'Please input your phone number!',
           },
           {
-            validator: validateEmptyString,
-            message: 'Please enter valid phone number!',
-          },
-          {
-            pattern: validatePhoneNumber,
-            message: 'Please enter valid phone number!',
+            pattern: new RegExp(/^(((\+){1}91){1})? ?-?[98765]{1}[0-9]{9}$/),
+            message: 'Please enter a valid phone number!',
           },
         ]}
       >
-        <Input />
+        <Input autoComplete="off" />
       </Form.Item>
       <Form.Item
         name="email"
         label="E-mail"
         rules={[
           {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
+            pattern: new RegExp(/^[A-Za-z][\w\.-]+@([\w-]+\.)+[\w-]{2,4}$/),
+            message: 'Please enter a valid Email!',
           },
           {
             required: true,
             message: 'Please input your E-mail!',
           },
-          {
-            validator: validateEmptyString,
-            message: 'Please input valid value!',
-          },
         ]}
       >
-        <Input />
+        <Input autoComplete="off" />
       </Form.Item>
     </>
   );
