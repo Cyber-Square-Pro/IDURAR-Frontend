@@ -149,9 +149,14 @@ export const routesConfig = [
     component: 'Lead/LeadUpdate',
   },
   {
+    path:'/addlead',
+    component:'AddLead/index'
+  },
+  {
     path: '/offer',
     component: 'Offer/index',
   },
+  
   {
     path: '/offer/create',
     component: 'Offer/OfferCreate',

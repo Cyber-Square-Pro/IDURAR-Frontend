@@ -6,12 +6,14 @@ import { PlusOutlined } from '@ant-design/icons';
 export default function LeadForm() {
   return (
     <>
+    
+    <h2>Personal Information</h2>
       <Form.Item
         label="First Name"
         name="firstName"
         rules={[
           {
-            required: true,
+            required:false,
             message: 'Please input First name!',
           },
         ]}
@@ -24,7 +26,7 @@ export default function LeadForm() {
         name="lastName"
         rules={[
           {
-            required: true,
+            required: false,
             message: 'Please input Last name!',
           },
         ]}
@@ -33,38 +35,134 @@ export default function LeadForm() {
       </Form.Item>
 
       <Form.Item
-        label="Email"
-        name="email"
+        label="Gender"
+        name="gender"
         rules={[
           {
-            required: true,
-            message: 'Please input Email!',
+            required: false,
+            message: 'Please input gender!',
+          },
+        ]}
+        
+      >
+        <Select
+          options={[
+            
+            { value: 'Male', label: 'Male' },
+            { value: 'Female', label: 'Female' },
+            { value: 'Other', label: 'Other' },
+          ]}
+        ></Select>
+      </Form.Item>
+
+      
+
+      <h2>Address Information</h2>
+      <Form.Item
+        label="Street"
+        name="street"
+        rules={[
+          {
+            required:false,
+            message: 'Please input street!',
           },
         ]}
       >
         <Input />
       </Form.Item>
-
       <Form.Item
-        label="Phone Number"
-        name="phone"
+        label="State"
+        name="state"
         rules={[
           {
-            required: true,
+            required: false,
+            message: 'Please input state!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Country"
+        name="Country"
+        rules={[
+          {
+            required: false,
+            message: 'Please input country!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="City"
+        name="City"
+        rules={[
+          {
+            required: false,
+            message: 'Please input city!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Zip code"
+        name="zid code"
+        rules={[
+          {
+            required: false,
+            message: 'Please input zip code!',
+          },
+        ]}
+      >
+        <Input  />
+      </Form.Item>
+
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          {
+            required: false,
+            message: 'Please input Email!',
+          },
+        ]}
+      >
+        <Input type="email" />
+      </Form.Item>
+      <Form.Item
+        label="Contact Number"
+        name="contact"
+        rules={[
+          {
+            required: false,
             message: 'Please input Phone Number!',
           },
         ]}
       >
         <Input type="tel" />
       </Form.Item>
-
       <Form.Item
-        label="Company"
-        name="company"
+        label="Parent Contact Number"
+        name="parent contact number"
         rules={[
           {
-            required: true,
-            message: 'Please input Lead Company!',
+            required: false,
+            message: 'Please input Phone Number!',
+          },
+        ]}
+      >
+        <Input type="tel" />
+      </Form.Item>
+      
+      <Form.Item
+        label="Qualification"
+        name="qualification"
+        rules={[
+          {
+            required: false,
+            message: 'Please input Qualification!',
           },
         ]}
       >
@@ -72,28 +170,62 @@ export default function LeadForm() {
       </Form.Item>
 
       <Form.Item
-        label="Job Title"
-        name="jobTitle"
+        label="College"
+        name="college"
         rules={[
           {
-            required: true,
-            message: 'Please input the Job Title!',
+            required: false,
+            message: 'Please input College!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Pass out year"
+        name="Pass out year"
+        rules={[
+          {
+            required: false,
+            message: 'Please input pass out year!',
           },
         ]}
       >
         <Input />
       </Form.Item>
 
-      <Form.Item label="Address" name="address">
-        <Input />
-      </Form.Item>
-
-      <Form.Item label="Country" name="country">
+      <Form.Item
+        label="Technology opting"
+        name="technology opting"
+        rules={[
+          {
+            required: false,
+            
+          },
+        ]}
+      >
         <Input />
       </Form.Item>
 
       <Form.Item
-        label="status"
+        label="Expected Joining Date"
+        name="Excwepted joining date"
+        rules={[
+          {
+            required: false,
+           
+          },
+        ]}
+      >
+        <Input  type='number'/>
+      </Form.Item>
+
+      <Form.Item label="Lead Source" name="lead source">
+        <Input placeholder="ex: linkedin, website, ads..." />
+      </Form.Item>
+
+      <Form.Item
+        label="Lead Status"
         name="status"
         rules={[
           {
@@ -106,20 +238,49 @@ export default function LeadForm() {
         <Select
           options={[
             { value: 'new', label: 'New' },
-            { value: 'reached', label: 'Reached' },
-            { value: 'interested', label: 'Interest' },
-            { value: 'not interested', label: 'Not Interest' },
+            { value: 'reached', label: 'Attempted to Contact' },
+            { value: 'interested', label: 'Contacted' },
+            { value: 'not interested', label: 'Not Contacted' },
+            { value: 'not interested', label: 'Junk Lead' },
+            { value: 'not interested', label: 'Lost Lead' },
+          ]}
+        ></Select>
+      </Form.Item>
+      <Form.Item
+        label="Mode of Training"
+        name="mode"
+        rules={[
+          {
+            required: false,
+            message: 'Please input mode of training!',
+          },
+        ]}
+        
+      >
+        <Select
+          options={[
+            
+            { value: 'Online', label: 'Online' },
+            { value: 'Offline', label: 'Offline' },
           ]}
         ></Select>
       </Form.Item>
 
-      <Form.Item label="Note" name="note">
-        <Input />
+    <h2>Description Information</h2> 
+    <Form.Item
+        label="Description"
+        name="Description"
+        rules={[
+          {
+            required: false,
+         
+          },
+        ]}
+      >
+        <Input .TextArea rows={3} />
       </Form.Item>
 
-      <Form.Item label="Source" name="source">
-        <Input placeholder="ex: linkedin, website, ads..." />
-      </Form.Item>
     </>
+
   );
 }

@@ -80,14 +80,14 @@ export default function SidePanel({ config, topContent, bottomContent, fixHeader
           paddingTop: paddingTopSider,
         }}
       >
-        {fixHeaderPanel}
-        <CollapseBox
+        {/* {fixHeaderPanel} */}
+        {/* <CollapseBox
           buttonTitle={ADD_NEW_ENTITY}
           isCollapsed={isBoxCollapsed}
           onCollapse={collapsePanelBox}
           topContent={topContent}
           bottomContent={bottomContent}
-        ></CollapseBox>
+        ></CollapseBox> */}
       </div>
     </Sider>
   );

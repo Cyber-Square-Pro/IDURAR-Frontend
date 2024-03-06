@@ -8,14 +8,17 @@ import { selectItemById } from '@/redux/crud/selectors';
 import { useCrudContext } from '@/context/crud';
 import uniqueId from '@/utils/uinqueId';
 import DataTable from '@/components/DataTable';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function AddNewItem({ config }) {
   const { crudContextAction } = useCrudContext();
   const { collapsedBox, panel } = crudContextAction;
   const { ADD_NEW_ENTITY } = config;
+  const history = useHistory();
   const handelClick = () => {
-    panel.open();
-    collapsedBox.close();
+    history.push('/addlead')
+    // panel.open();
+    // collapsedBox.close();
   };
 
   const items = [
@@ -45,9 +48,9 @@ function AddNewItem({ config }) {
   );
 
   return (
-    <Dropdown.Button onClick={() => handelClick()} overlay={menu} type="primary">
+    <Button onClick={handelClick} type="primary">
       {ADD_NEW_ENTITY}
-    </Dropdown.Button>
+</Button>
   );
 }
 function DropDownRowMenu({ row }) {
