@@ -8,7 +8,6 @@ const CrudContext = createContext();
 function CrudContextProvider({ children }) {
   const [state, dispatch] = useReducer(contextReducer, initialState);
   const value = useMemo(() => [state, dispatch], [state]);
-
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;
 }
 

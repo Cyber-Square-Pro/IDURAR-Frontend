@@ -19,6 +19,7 @@ import {
   MenuOutlined,
   UserAddOutlined,
   FileOutlined,
+  ShoppingCartOutlined,
 } from '@ant-design/icons';
 
 const SIDEBAR_MENU = [
@@ -26,6 +27,7 @@ const SIDEBAR_MENU = [
   { key: '/lead', icon: <UserAddOutlined />, title: 'Lead' },
   { key: '/offer', icon: <FileOutlined />, title: 'Offer' },
   { key: '/customer', icon: <CustomerServiceOutlined />, title: 'Customer' },
+  { key: '/product', icon: <ShoppingCartOutlined />, title: 'Product' },
   { key: '/invoice', icon: <FileTextOutlined />, title: 'Invoice' },
   { key: '/quote', icon: <FileSyncOutlined />, title: 'Quote' },
   { key: '/payment/invoice', icon: <CreditCardOutlined />, title: 'Payment Invoice' },

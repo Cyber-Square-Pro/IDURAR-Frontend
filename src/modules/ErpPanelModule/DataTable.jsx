@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 
 import { RedoOutlined, PlusOutlined } from '@ant-design/icons';
 import useResponsiveTable from '@/hooks/useResponsiveTable';
+
 function AddNewItem({ config }) {
   const history = useHistory();
   const { ADD_NEW_ENTITY, entity } = config;
@@ -78,7 +79,8 @@ export default function DataTable({ config, DataTableDropMenu }) {
             <Button onClick={handelDataTableLoad} key={`${uniqueId()}`} icon={<RedoOutlined />}>
               Refresh
             </Button>,
-            create ? <AddNewItem config={config} key={`${uniqueId()}`} /> : <></>,
+            create ? <AddNewItem config={config} key={`${uniqueId()}`} /> : <></>
+           
           ]}
           style={{
             padding: '20px 0px',
