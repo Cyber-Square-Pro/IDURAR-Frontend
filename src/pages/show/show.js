@@ -3,10 +3,10 @@ import { Breadcrumb, Layout, Menu, Button, Card, Input, Dropdown, message, Colla
 import { Select, Space, Avatar, Tabs, Timeline } from 'antd';
 import { UserOutlined, MailOutlined, ArrowLeftOutlined, EllipsisOutlined } from '@ant-design/icons';
 import './style.css';
-import Docs from './google-docs.png';
-import File from './file.png';
-import Link from './link.png';
-import Attach from './attachment.png';
+import Docs from '@/style/images/google-docs.png';
+import File from '@/style/images/file.png';
+import Link from '@/style/images/link.png';
+import Attach from '@/style/images/attachment.png';
 
 const { Header, Content } = Layout;
 const { TextArea } = Input;

@@ -1,5 +1,6 @@
+import React from 'react';
 
-import { Button, Menu } from 'antd';
+import { Button, Menu,Dropdown } from 'antd';
 import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { crud } from '@/redux/crud/actions';
@@ -13,15 +14,43 @@ function AddNewItem({ config }) {
   const { crudContextAction } = useCrudContext();
   const { collapsedBox, panel } = crudContextAction;
   const { ADD_NEW_ENTITY } = config;
+  const history = useHistory();
   const handelClick = () => {
-    panel.open();
-    collapsedBox.close();
+    history.push('/addlead')
+    // panel.open();
+    // collapsedBox.close();
   };
+
+  const items = [
+    {
+      key: '1',
+      label: '1st item',
+    },
+    {
+      key: '2',
+      label: '2nd item',
+    },
+    {
+      key: '3',
+      label: '3rd item',
+    },
+  ];
+
+
+  const menu = (
+    <Menu>
+      {items.map(item => (
+        <Menu.Item key={item.key} >
+          {item.label}
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
 
   return (
     <Button onClick={handelClick} type="primary">
       {ADD_NEW_ENTITY}
-    </Button>
+</Button>
   );
 }
 function DropDownRowMenu({ row }) {
@@ -30,22 +59,20 @@ function DropDownRowMenu({ row }) {
   const { panel, collapsedBox, modal, readBox, editBox } = crudContextAction;
   const item = useSelector(selectItemById(row._id));
   const history = useHistory();
-
   const Show = () => {
     dispatch(crud.currentItem({ data: item }));
-    history.push('/show'); // Navigate to "/show" page
-  };
+    history.push('/show')
     // panel.open();
     // collapsedBox.open();
     // readBox.open();
-  
+  };
   function Edit() {
     dispatch(crud.currentItem({ data: item }));
     dispatch(crud.currentAction({ actionType: 'update', data: item }));
     editBox.open();
     panel.open();
     collapsedBox.open();
-  }
+  } 
   function Delete() {
     dispatch(crud.currentAction({ actionType: 'delete', data: item }));
     modal.open();

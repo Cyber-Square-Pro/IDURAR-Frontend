@@ -137,6 +137,7 @@ export const routesConfig = [
     path: '/show',
     component: 'show/show',
   },
+
   {
     path: '/lead/create',
     component: 'Lead/LeadCreate',
