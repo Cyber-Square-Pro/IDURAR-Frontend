@@ -1,5 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Dropdown, Button, PageHeader, Table, Descriptions, Pagination, Menu } from 'antd';
+import {
+  Dropdown,
+  Button,
+  PageHeader,
+  Table,
+  Descriptions,
+  Pagination,
+  Menu,
+  Input,
+  Space,
+} from 'antd';
 import {
   EllipsisOutlined,
   DownOutlined,
@@ -7,6 +17,8 @@ import {
   TableOutlined,
   UnorderedListOutlined,
   CaretDownOutlined,
+  SearchOutlined,
+  CheckOutlined,
 } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectListItems } from '@/redux/crud/selectors';
@@ -16,7 +28,27 @@ import useResponsiveTable from '@/hooks/useResponsiveTable';
 import TileView from '../TileView';
 
 const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
-  let { entity, ENTITY_NAME, dataTableColumns, DATATABLE_TITLE } = config;
+  let { entity, dataTableColumns, DATATABLE_TITLE } = config;
+  const { result: listResult, isLoading: listIsLoading } = useSelector(selectListItems);
+  const { items } = listResult;
+  const dispatch = useDispatch();
+  //data for Table
+  const [dataSource, setDataSource] = useState([]);
+  // Pagination states starts here
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  // Pagination states ends here
+
+  //list view
+  const [hoveredRowIndex, setHoveredRowIndex] = useState(null);
+  //sorting in tileview
+  const [searchText, setSearchText] = useState('');
+  const [selectedKey, setSelectedKey] = useState(null);
+  const [sortData, setSortByData] = useState({ key: 'none', text: 'None' });
+  const [sortByKey, setSortByKey] = useState('None');
+  //table views
+  const [viewType, setViewType] = useState('table'); // Default view type
+  const [selectedItem, setSelectedItem] = useState(null);
 
   dataTableColumns = [
     ...dataTableColumns,
@@ -30,43 +62,111 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
     },
   ];
 
-  const { result: listResult, isLoading: listIsLoading } = useSelector(selectListItems);
+  //fetching table data
+  useEffect(() => {
+    if (listResult && listResult.items) {
+      setDataSource(listResult.items);
+    }
+  }, [listResult]);
 
-  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
-
-  const {items} = listResult;
-
-  const [sortData, setSortByData] = useState('None');
-  const [sortByKey, setSortByKey] = useState('Asc');
-
-  const [viewType, setViewType] = useState('table'); // Default view type
-  const [selectedItem, setSelectedItem] = useState(null);
-
-  const dispatch = useDispatch();
-
-  const handleDataTableLoad = useCallback((pagination) => {
-    const options = {
-      page: pagination.current || 1,
-      items: pagination.pageSize || 10,
-    };
-    dispatch(crud.list({ entity, options }));
+  const { expandedRowData, tableColumns, tableHeader } = useResponsiveTable(
+    dataTableColumns,
+    items
+  );
+  useEffect(() => {
+    dispatch(crud.list({ entity }));
   }, []);
 
-  const handlePaginationChange = (page, pageSize) => {
-    setPagination({ ...pagination, current: page });
+  //handling Pagination functionalities
+
+  const handleDataTableLoad = useCallback(
+    (pagination) => {
+      const { current: page, pageSize } = pagination;
+      const options = { page: page || 1, items: pageSize || 10 };
+      dispatch(crud.list({ entity, options }));
+    },
+    [dispatch, entity]
+  );
+
+  const handlePaginationChange = useCallback(
+    (page, pageSize) => {
+      setPage(page);
+      setPageSize(pageSize);
+      dispatch(crud.list({ entity, options: { page, items: pageSize } }));
+    },
+    [dispatch, entity]
+  );
+
+  //handling sorting functionalities in tilesview
+
+  const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value);
   };
 
-  const handlePageSizeChange = ({ key }) => {
-    setPagination({ ...pagination, current: 1, pageSize: parseInt(key) });
+  const handleSortByData = () => {
+    console.log('sort', sortData.text, sortByKey);
+    if (sortData.text !== 'None' && sortByKey !== 'None') {
+      const sorted = [...dataSource].sort((a, b) => {
+        if (sortByKey === 'Asc') {
+          return b[sortData.key].localeCompare(a[sortData.key]);
+        } else if (sortByKey === 'Desc') {
+          return a[sortData.key].localeCompare(b[sortData.key]);
+        }
+      });
+      setDataSource(sorted ? sorted : []);
+    } else {
+      return setDataSource(listResult.items);
+    }
   };
+  const filteredItems = [
+    { key: 'none', text: 'None' },
+    { key: 'firstName', text: 'First Name' },
+    { key: 'lastName', text: 'Last Name' },
+    { key: 'company', text: 'Company' },
+    { key: 'email', text: 'Email' },
+  ].filter((item) => item.text.toLowerCase().includes(searchText.toLowerCase()));
 
-  const handleSortByData = ({ key }) => {
-    setSortByData(key);
-  };
+  //Menu for sort
 
-  const handleSortKey = ({ key }) => {
-    setSortByKey(key);
-  };
+  const sortByData = (
+    <Menu onClick={handleSortByData}>
+      <Menu.Item key="search" disabled>
+        <Space>
+          <Input
+            prefix={<SearchOutlined />}
+            placeholder="Search menu"
+            value={searchText}
+            onChange={handleSearchTextChange}
+          />
+        </Space>
+      </Menu.Item>
+      {filteredItems.map((item) => (
+        <Menu.Item
+          key={item.key}
+          icon={selectedKey === item.key ? <CheckOutlined /> : null}
+          onClick={() => setSortByData({ key: item.key, text: item.text })}
+        >
+          {item.text}
+        </Menu.Item>
+      ))}
+    </Menu>
+  );
+  const sortOptions = (
+    <Menu onClick={handleSortByData}>
+      <Menu.Item key="None" onClick={(e) => setSortByKey('None')}>
+        None
+      </Menu.Item>
+      <Menu.Item key="Asc" onClick={(e) => setSortByKey('Asc')}>
+        Asc
+      </Menu.Item>
+      <Menu.Item key="Desc" onClick={(e) => setSortByKey('Desc')}>
+        {' '}
+        Desc
+      </Menu.Item>
+    </Menu>
+  );
+
+  // handling different views
 
   const handleViewTypeChange = ({ key }) => {
     setViewType(key);
@@ -75,40 +175,6 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   const handleRowClick = (row) => {
     setSelectedItem(row);
   };
-
-  useEffect(() => {
-    dispatch(crud.list({ entity }));
-  }, []);
-
-  const { expandedRowData, tableColumns, tableHeader } = useResponsiveTable(
-    dataTableColumns,
-    items
-  );
-
-  const pageSizeMenu = (
-    <Menu onClick={handlePageSizeChange}>
-      <Menu.Item key="10">10-Records per page</Menu.Item>
-      <Menu.Item key="20">20-Records per page</Menu.Item>
-      <Menu.Item key="30">30-Records per page</Menu.Item>
-      <Menu.Item key="40">40-Records per page</Menu.Item>
-      <Menu.Item key="50">50-Records per page</Menu.Item>
-    </Menu>
-  );
-
-  const sortByData = (
-    <Menu onClick={handleSortByData}>
-      <Menu.Item key="Name">Name</Menu.Item>
-      <Menu.Item key="Email">Email</Menu.Item>
-      <Menu.Item key="Course">Course</Menu.Item>
-    </Menu>
-  );
-
-  const sortOptions = (
-    <Menu onClick={handleSortKey}>
-      <Menu.Item key="Asc">Asc</Menu.Item>
-      <Menu.Item key="Desc">Desc</Menu.Item>
-    </Menu>
-  );
 
   const importOptions = (
     <Menu>
@@ -141,63 +207,75 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   );
 
   const ListView = ({ items }) => {
+    const handleRowHover = (index) => {
+      setHoveredRowIndex(index);
+    };
+
+    const columns = [
+      {
+        title: 'Serial No',
+        render: (text, record, index) => <span>{index + 1}</span>,
+      },
+      {
+        title: 'First Name',
+        dataIndex: 'firstName',
+        sorter: (a, b) => a.firstName.localeCompare(b.firstName),
+      },
+      {
+        title: 'Last Name',
+        dataIndex: 'lastName',
+        sorter: (a, b) => a.lastName.localeCompare(b.lastName),
+      },
+      {
+        title: 'Company',
+        dataIndex: 'company',
+        sorter: (a, b) => a.company.localeCompare(b.company),
+      },
+      {
+        title: 'Email',
+        dataIndex: 'email',
+        sorter: (a, b) => a.email.localeCompare(b.email),
+      },
+      {
+        title: 'Phone',
+        dataIndex: 'phone',
+        sorter: (a, b) => a.phone.localeCompare(b.phone),
+      },
+      {
+        title: 'Status',
+        dataIndex: 'status',
+        filters: [
+          { text: 'New', value: 'new' },
+          { text: 'Reached', value: 'reached' },
+          { text: 'Interested', value: 'interested' },
+        ],
+        onFilter: (value, record) => record.status === value,
+      },
+      {
+        title: '',
+        render: (row, index) => (
+          <div
+            onMouseEnter={() => handleRowHover(index)}
+            onMouseLeave={() => setHoveredRowIndex(null)}
+            style={{ backgroundColor: hoveredRowIndex === index ? '#dedcdc' : 'transparent' }}
+          >
+            <Dropdown overlay={DropDownRowMenu({ row })} trigger={['click']}>
+              <EllipsisOutlined style={{ cursor: 'pointer', fontSize: '24px' }} />
+            </Dropdown>
+          </div>
+        ),
+      },
+    ];
     return (
-      <div style={{ padding: '10px 0' }}>
-        <table
-          style={{
-            width: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'left',
-          }}
-        >
-          <thead style={{ backgroundColor: '#FAFAFA', height: '50px' }}>
-            <tr>
-              <th style={{ padding: '12px' }}>
-                <b>Serial No.</b>
-              </th>
-              <th>
-                <b>First Name</b>
-              </th>
-              <th>
-                <b>Last Name</b>
-              </th>
-              <th>
-                <b>Company</b>
-              </th>
-              <th>
-                <b>Email</b>
-              </th>
-              <th>
-                <b>Phone</b>
-              </th>
-              <th>
-                <b>Status</b>
-              </th>
-              <th> </th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((item, index) => (
-              <tr key={item._id} style={{ border: 'none', borderBottom: '1px solid #e8e8e8' }}>
-                <td style={{ padding: '12px' }}>{index + 1}</td>
-                <td>{item.firstName}</td>
-                <td>{item.lastName}</td>
-                <td>{item.company}</td>
-                <td>{item.email}</td>
-                <td>{item.phone}</td>
-                <td style={{ textTransform: 'uppercase' }}>{item.status}</td>
-                <td>
-                  {' '}
-                  <EllipsisOutlined style={{ fontSize: '25px', fontWeight: '700' }} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table
+        dataSource={items}
+        columns={columns}
+        pagination={false}
+       
+      />
     );
   };
+
   return (
     <>
       <div ref={tableHeader}>
@@ -262,54 +340,58 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
             width: '100%',
           }}
         >
-          <Dropdown overlay={pageSizeMenu} trigger={['click']} style={{ width: '300px' }}>
-            <Button>
-              {pagination.pageSize} -Records per page <DownOutlined />
-            </Button>
-          </Dropdown>
           <Pagination
-            style={{ marginLeft: '20px' }}
-            current={pagination.current}
-            pageSize={pagination.pageSize}
-            total={items.length}
+            showSizeChanger
+            current={page}
+            pageSize={pageSize}
+            onShowSizeChange={handlePaginationChange}
             onChange={handlePaginationChange}
-            defaultCurrent={2}
+            defaultCurrent={1}
+            defaultPageSize={pageSize}
+            total={500}
           />
         </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'right',
-            gap: '20px',
-            height: '30px',
-            cursor: 'pointer',
-            marginBottom: '10px',
-          }}
-        >
-          <label style={{ marginTop: '4px' }}> Sort by</label>
-          <Dropdown overlay={sortByData} trigger={['click']}>
-            <Button>
-              {sortData}
-              <DownOutlined />
-            </Button>
-          </Dropdown>
-          <Dropdown overlay={sortOptions} trigger={['click']}>
-            <Button>
-              {sortByKey} <DownOutlined />
-            </Button>
-          </Dropdown>
-        </div>
       </div>
-      {viewType === 'list' && <ListView items={items} />}
-      {viewType === 'tile' && <TileView items={items} DropDownRowMenu={DropDownRowMenu} />}
+      {viewType === 'list' && <ListView items={dataSource} />}
+      {viewType === 'tile' && (
+        <>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'right',
+              gap: '20px',
+              height: '30px',
+              cursor: 'pointer',
+              marginBottom: '10px',
+            }}
+          >
+            <label style={{ marginTop: '4px' }}> Sort by</label>
+
+            <Dropdown overlay={sortByData} trigger={['click']}>
+              <Button>
+                {sortData.text}
+                <DownOutlined />
+              </Button>
+            </Dropdown>
+            <Dropdown overlay={sortOptions} trigger={['click']}>
+              <Button>
+                {sortByKey}
+                <DownOutlined />
+              </Button>
+            </Dropdown>
+          </div>
+          <TileView items={dataSource} DropDownRowMenu={DropDownRowMenu} />
+        </>
+      )}
       {viewType !== 'list' && viewType !== 'tile' && (
         <Table
           columns={tableColumns}
           rowKey={(item) => item._id}
-          dataSource={items}
-          pagination={false}
+          dataSource={dataSource}
           loading={listIsLoading}
-          onChange={handleDataTableLoad}
+          total={500}
+          pagination={false}
+          onChange={handlePaginationChange}
           expandable={
             expandedRowData.length
               ? {

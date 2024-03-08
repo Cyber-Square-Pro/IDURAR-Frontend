@@ -3,7 +3,7 @@ import { Tag } from 'antd';
 import React from 'react';
 
 import CrudModule from '@/modules/ProductCrudModule/index';
-import LeadForm from '@/forms/LeadForm';
+import LeadForm from '@/forms/_LeadForm';
 
 import configPage from './config/index';
 

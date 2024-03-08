@@ -26,8 +26,8 @@ export default function Lead() {
       dataIndex: 'lastName',
     },
     {
-      title: 'Company',
-      dataIndex: 'company',
+      title: 'Qualification',
+      dataIndex: 'qualification',
     },
     {
       title: 'Email',
@@ -35,11 +35,11 @@ export default function Lead() {
     },
     {
       title: 'Phone',
-      dataIndex: 'phone',
+      dataIndex: 'contactNumber',
     },
     {
       title: 'Status',
-      dataIndex: 'status',
+      dataIndex: 'leadStatus',
     },
   ];
 
@@ -53,8 +53,8 @@ export default function Lead() {
       dataIndex: ['lastName'],
     },
     {
-      title: 'Company',
-      dataIndex: ['company'],
+      title: 'Qualification',
+      dataIndex: ['qualification'],
     },
     {
       title: 'Email',
@@ -62,11 +62,11 @@ export default function Lead() {
     },
     {
       title: 'Phone',
-      dataIndex: ['phone'],
+      dataIndex: ['contactNumber'],
     },
     {
       title: 'Status',
-      dataIndex: 'status',
+      dataIndex: 'leadStatus',
       render: (status) => {
         let color =
           status === 'new'
@@ -98,6 +98,7 @@ export default function Lead() {
   return (
     <CrudModule
       createForm={<LeadForm />}
+
       updateForm={<LeadForm isUpdateForm={true} />}
       config={config}
     />
