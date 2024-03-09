@@ -11,10 +11,11 @@ function AddLead (){
 const dispatch=useDispatch();  
 const [avatar, setAvatar] = useState(null);
 
-  const createLead=(values)=>{
-
-    // values.avatar=avatar;
+  const createLead=(values)=>{   
+    values.image=avatar;
+    
     console.log("lead created",values)
+
     dispatch(crud.create({entity:'lead',jsonData:values}))
     
   }
@@ -22,10 +23,13 @@ const [avatar, setAvatar] = useState(null);
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
+       reader.readAsDataURL(file);
+
       reader.onloadend = () => {
+        console.log(reader.result);
         setAvatar(reader.result);
       };
-      reader.readAsDataURL(file);
+      // reader.readAsDataURL(file);
     }
   };
   
@@ -38,7 +42,7 @@ return(
    <Form
         onFinish={createLead}
         >
-          <Form.Item>
+ <Form.Item>
 {/* <div style={{ marginLeft: '50px' }}>
     <h2 style={{ marginBottom: '30px' }}></h2> */}
     <h2>Create Lead</h2>
@@ -52,10 +56,10 @@ return(
         style={{ display: 'none' }}
         onChange={handleImageChange}
       />
+      <Form.Item name='image'>
       {avatar ? (
         <Avatar
           size={64}
-          name='avatar'
           src={avatar}
           style={{ marginLeft: '10px', cursor: 'pointer' }}
           onClick={handleAvatarClick}
@@ -68,6 +72,9 @@ return(
           onClick={handleAvatarClick}
         />
         )}
+
+      </Form.Item>
+   
     
   {/* </div> */}
 </Form.Item>
