@@ -13,6 +13,22 @@ const request = {
 
     try {
       const response = await axios.post(entity + '/create', jsonData);
+        console.log("inside request",jsonData,response);
+
+      successHandler(response, {
+        notifyOnSuccess: true,
+        notifyOnFailed: true,
+      });
+      return response.data;
+    } catch (error) {
+      return errorHandler(error);
+    }
+  },
+  upload: async ({ entity, jsonData }) => {
+    console.log('🚀 Create Request 🚀 ~ file: request.js ~ line 19 ~ create: ~ jsonData', jsonData);
+
+    try {
+      const response = await axios.post(entity + '/upload', jsonData);
       successHandler(response, {
         notifyOnSuccess: true,
         notifyOnFailed: true,

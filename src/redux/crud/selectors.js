@@ -10,6 +10,9 @@ export const selectItemById = (itemId) =>
 
 export const selectCreatedItem = createSelector([selectCrud], (crud) => crud.create);
 
+// export const selectUploadedItem = createSelector([selectCrud], (crud) => crud.upload);
+
+
 export const selectUpdatedItem = createSelector([selectCrud], (crud) => crud.update);
 
 export const selectReadItem = createSelector([selectCrud], (crud) => crud.read);
