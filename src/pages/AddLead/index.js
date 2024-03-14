@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Form, Input, Button, Select, Row, Col } from 'antd';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -6,50 +6,58 @@ import { DatePicker } from 'antd';
 import LeadForm from '@/forms/LeadForm';
 import { useDispatch } from 'react-redux';
 import { crud } from '@/redux/crud/actions';
-// import { selectUploadedItem } from '@/redux/crud/selectors';
+import { selectUploadedItem } from '@/redux/crud/selectors';
 import { useSelector } from 'react-redux';
 
 function AddLead (){
   const dispatch = useDispatch();
   const [avatar, setAvatar] = useState(null);
   const [file, setFile] = useState()
+  const inputFileRef=useRef(null);
   const [uploadedImage,setUploadedImage]=useState(null)
   
-  // const { result: filePath } = useSelector(selectUploadedItem);
+  const { result: filePath } = useSelector(selectUploadedItem);
 
 
 
 
-  const createLead = (values) => {
+  const createLead = async (values) => {
+
+   try{     
+
+        const fileFormData= new FormData();
+          fileFormData.append("photo",file)
+          try{
+              await  dispatch(crud.upload({ entity: 'lead', jsonData: fileFormData}));   
+              if(filePath){
+
+                values.file=filePath;
+                 dispatch(crud.create({ entity: 'lead', jsonData: values }))
+              } 
 
 
-    const data={
-       "photo": file,
-       "firstName":values.firstName,
-       "lastName": values.lastName,
-       "email": values.email,
-        "contactNumber":values.contactNumber,
-        "parentContact":values.parentContact,
-       "passYear": values.passYear,
-       "joinDate": values.joinDate,
-       "gender": values.gender,
-       "qualification": values.qualification,
-       "techOpted": values.techOpted,
-       "college": values.college,
-       "leadSource":  values.leadSource,
-       "leadStatus": values.leadStatus,
-       "trainingMode": values.trainingMode,
-       "city": values.city,
-       "street": values.street,
-       "state": values.state,
-       "country": values.country,
-       "zipcode": values.zipcode,
-       "description": values.description
+          }catch(error){
 
-    }
-   console.log("datatosend--->",data)
+          }
 
-     dispatch(crud.create({ entity: 'lead', jsonData: data }))
+
+
+
+    
+
+
+
+
+
+
+
+
+   }catch(error){
+    console.log(error)
+   }
+
+
+
   
   }
  
@@ -57,26 +65,27 @@ function AddLead (){
     const file = event.target.files[0];
     setFile(file);
     
-    if (file) {
-      try {
+    
+    // if (file) {
+    //   try {
        
-         console.log(file)      
+    //      console.log(file)      
         
-         //dispatch(crud.upload({ entity: 'lead', jsonData: formData }));    
+    //      //dispatch(crud.upload({ entity: 'lead', jsonData: formData }));    
      
-          console.log("uploadedimage",uploadedImage);
+    //       console.log("uploadedimage",uploadedImage);
 
           const reader= new FileReader();
-          reader.readAsDataURL(file);
+          reader.readAsDataURL(event.target.files[0]);
           reader.onloadend=()=>{
             setAvatar(reader.result);
                  
-       }
+          }
       
-      } catch (error) {
-        console.error('Error uploading image:', error);
-      }
-    }
+    //   } catch (error) {
+    //     console.error('Error uploading image:', error);
+    //   }
+    // }
   })
 
   
@@ -96,6 +105,7 @@ return(
  <>  
    <Form
         onFinish={createLead}
+
         encType='multipart/form-data'
         >
  <Form.Item>
@@ -108,11 +118,13 @@ return(
     <input
         id="avatarInput"
         type="file"
+        // name='file'
+        //  ref={inputFileRef}
         accept="image/*"
         style={{ display: 'none' }}
         onChange={handleImageChange}
       />
-      <Form.Item name='image'>
+      <Form.Item >
       {avatar ? (
         <Avatar
           size={64}
