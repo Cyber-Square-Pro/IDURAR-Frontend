@@ -36,14 +36,13 @@ export const crud = {
       });
     },
   list:
-    ({ entity, options = { page: 1, items: 10 } }) =>
+    ({ entity, options = { page: 1, items: 1 } }) =>
     async (dispatch) => {
       dispatch({
         type: actionTypes.REQUEST_LOADING,
         keyState: 'list',
         payload: null,
       });
-
       let data = await request.list({ entity, options });
 
       if (data.success === true) {
@@ -78,7 +77,7 @@ export const crud = {
       });
 
       let data = await request.create({ entity, jsonData });
-          console.log("insid request action",jsonData)
+      console.log('insid request action', jsonData);
 
       if (data.success === true) {
         dispatch({
@@ -99,7 +98,7 @@ export const crud = {
         });
       }
     },
-    upload:
+  upload:
     ({ entity, jsonData }) =>
     async (dispatch) => {
       dispatch({
@@ -109,7 +108,7 @@ export const crud = {
       });
 
       let data = await request.upload({ entity, jsonData });
-      console.log("inside uploadaction",data,data.result)
+      console.log('inside uploadaction', data, data.result);
       if (data.success === true) {
         dispatch({
           type: actionTypes.REQUEST_SUCCESS,

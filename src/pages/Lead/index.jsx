@@ -96,11 +96,12 @@ export default function Lead() {
     entityDisplayLabels,
   };
   return (
-    <CrudModule
-      createForm={<LeadForm />}
-
-      updateForm={<LeadForm isUpdateForm={true} />}
-      config={config}
-    />
+    <>
+      <CrudModule
+        createForm={<LeadForm />}
+        updateForm={<LeadForm isUpdateForm={true} />}
+        config={config}
+      />
+    </>
   );
 }

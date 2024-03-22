@@ -30,13 +30,13 @@ import TileView from '../TileView';
 const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   let { entity, dataTableColumns, DATATABLE_TITLE } = config;
   const { result: listResult, isLoading: listIsLoading } = useSelector(selectListItems);
-  const { items } = listResult;
+  const { items,pagination } = listResult;
   const dispatch = useDispatch();
   //data for Table
   const [dataSource, setDataSource] = useState([]);
   // Pagination states starts here
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState();
   // Pagination states ends here
 
   //list view
@@ -125,6 +125,8 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
     { key: 'company', text: 'Company' },
     { key: 'email', text: 'Email' },
   ].filter((item) => item.text.toLowerCase().includes(searchText.toLowerCase()));
+
+
 
   //Menu for sort
 
@@ -266,14 +268,7 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
         ),
       },
     ];
-    return (
-      <Table
-        dataSource={items}
-        columns={columns}
-        pagination={false}
-       
-      />
-    );
+    return <Table dataSource={items} columns={columns} pagination={false} />;
   };
 
   return (
@@ -343,19 +338,16 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
           <Pagination
             showSizeChanger
             current={page}
-            pageSize={pageSize}
+            pageSize={pagination.pageSize}
             onShowSizeChange={handlePaginationChange}
             onChange={handlePaginationChange}
-            defaultCurrent={1}
+            defaultCurrent={page}
             defaultPageSize={pageSize}
-            total={500}
+            total={pagination.total}
           />
         </div>
       </div>
-      {viewType === 'list' && <ListView items={dataSource} />}
-      {viewType === 'tile' && (
-        <>
-          <div
+      <div
             style={{
               display: 'flex',
               justifyContent: 'right',
@@ -380,6 +372,10 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
               </Button>
             </Dropdown>
           </div>
+      {viewType === 'list' && <ListView items={dataSource} />}
+      {viewType === 'tile' && (
+        <>
+          
           <TileView items={dataSource} DropDownRowMenu={DropDownRowMenu} />
         </>
       )}

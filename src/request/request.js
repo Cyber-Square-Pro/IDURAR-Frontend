@@ -13,7 +13,7 @@ const request = {
 
     try {
       const response = await axios.post(entity + '/create', jsonData);
-        console.log("inside request",jsonData,response);
+      console.log('inside request', jsonData, response);
 
       successHandler(response, {
         notifyOnSuccess: true,

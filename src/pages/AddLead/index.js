@@ -34,23 +34,8 @@ function AddLead (){
                 values.file=filePath;
                  dispatch(crud.create({ entity: 'lead', jsonData: values }))
               } 
-
-
           }catch(error){
-
           }
-
-
-
-
-    
-
-
-
-
-
-
-
 
    }catch(error){
     console.log(error)

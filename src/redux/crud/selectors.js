@@ -6,12 +6,11 @@ export const selectCurrentItem = createSelector([selectCrud], (crud) => crud.cur
 
 export const selectListItems = createSelector([selectCrud], (crud) => crud.list);
 export const selectItemById = (itemId) =>
-  createSelector(selectListItems, (list) => list.result.items.find((item) => item._id === itemId));
+createSelector(selectListItems, (list) => list.result.items.find((item) => item._id === itemId));
 
 export const selectCreatedItem = createSelector([selectCrud], (crud) => crud.create);
 
 export const selectUploadedItem = createSelector([selectCrud], (crud) => crud.upload);
-
 
 export const selectUpdatedItem = createSelector([selectCrud], (crud) => crud.update);
 
