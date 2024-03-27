@@ -11,7 +11,6 @@ import {
   Space,
 } from 'antd';
 import {
-  EllipsisOutlined,
   DownOutlined,
   AppstoreOutlined,
   TableOutlined,
@@ -26,12 +25,14 @@ import { crud } from '@/redux/crud/actions';
 import uniqueId from '@/utils/uinqueId';
 import useResponsiveTable from '@/hooks/useResponsiveTable';
 import TileView from '../TileView';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   let { entity, dataTableColumns, DATATABLE_TITLE } = config;
   const { result: listResult, isLoading: listIsLoading } = useSelector(selectListItems);
-  const { items,pagination } = listResult;
+  const { items, pagination } = listResult;
   const dispatch = useDispatch();
+  const history = useHistory();
   //data for Table
   const [dataSource, setDataSource] = useState([]);
   // Pagination states starts here
@@ -49,18 +50,6 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
   //table views
   const [viewType, setViewType] = useState('table'); // Default view type
   const [selectedItem, setSelectedItem] = useState(null);
-
-  dataTableColumns = [
-    ...dataTableColumns,
-    {
-      title: '',
-      render: (row) => (
-        <Dropdown overlay={DropDownRowMenu({ row })} trigger={['click']}>
-          <EllipsisOutlined style={{ cursor: 'pointer', fontSize: '24px' }} />
-        </Dropdown>
-      ),
-    },
-  ];
 
   //fetching table data
   useEffect(() => {
@@ -96,6 +85,9 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
     },
     [dispatch, entity]
   );
+  useEffect(() => {
+    console.log(dataSource);
+  }, [dataSource]);
 
   //handling sorting functionalities in tilesview
 
@@ -125,8 +117,6 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
     { key: 'company', text: 'Company' },
     { key: 'email', text: 'Email' },
   ].filter((item) => item.text.toLowerCase().includes(searchText.toLowerCase()));
-
-
 
   //Menu for sort
 
@@ -222,6 +212,17 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
         title: 'First Name',
         dataIndex: 'firstName',
         sorter: (a, b) => a.firstName.localeCompare(b.firstName),
+        render: (text, item, index) => (
+          <a
+            onClick={() => {
+              console.log(item);
+              dispatch(crud.currentItem({ data: item }));
+              history.push('/show');
+            }}
+          >
+            {text}
+          </a>
+        ),
       },
       {
         title: 'Last Name',
@@ -240,8 +241,11 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
       },
       {
         title: 'Phone',
-        dataIndex: 'phone',
+        dataIndex: ['phone'],
         sorter: (a, b) => a.phone.localeCompare(b.phone),
+        render: (phone) => {
+          return <span>{phone}</span>;
+        },
       },
       {
         title: 'Status',
@@ -261,9 +265,9 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
             onMouseLeave={() => setHoveredRowIndex(null)}
             style={{ backgroundColor: hoveredRowIndex === index ? '#dedcdc' : 'transparent' }}
           >
-            <Dropdown overlay={DropDownRowMenu({ row })} trigger={['click']}>
+            {/* <Dropdown overlay={DropDownRowMenu({ row })} trigger={['click']}>
               <EllipsisOutlined style={{ cursor: 'pointer', fontSize: '24px' }} />
-            </Dropdown>
+            </Dropdown> */}
           </div>
         ),
       },
@@ -348,34 +352,33 @@ const DataTable = ({ config, DropDownRowMenu, AddNewItem }) => {
         </div>
       </div>
       <div
-            style={{
-              display: 'flex',
-              justifyContent: 'right',
-              gap: '20px',
-              height: '30px',
-              cursor: 'pointer',
-              marginBottom: '10px',
-            }}
-          >
-            <label style={{ marginTop: '4px' }}> Sort by</label>
+        style={{
+          display: 'flex',
+          justifyContent: 'right',
+          gap: '20px',
+          height: '30px',
+          cursor: 'pointer',
+          marginBottom: '10px',
+        }}
+      >
+        <label style={{ marginTop: '4px' }}> Sort by</label>
 
-            <Dropdown overlay={sortByData} trigger={['click']}>
-              <Button>
-                {sortData.text}
-                <DownOutlined />
-              </Button>
-            </Dropdown>
-            <Dropdown overlay={sortOptions} trigger={['click']}>
-              <Button>
-                {sortByKey}
-                <DownOutlined />
-              </Button>
-            </Dropdown>
-          </div>
+        <Dropdown overlay={sortByData} trigger={['click']}>
+          <Button>
+            {sortData.text}
+            <DownOutlined />
+          </Button>
+        </Dropdown>
+        <Dropdown overlay={sortOptions} trigger={['click']}>
+          <Button>
+            {sortByKey}
+            <DownOutlined />
+          </Button>
+        </Dropdown>
+      </div>
       {viewType === 'list' && <ListView items={dataSource} />}
       {viewType === 'tile' && (
         <>
-          
           <TileView items={dataSource} DropDownRowMenu={DropDownRowMenu} />
         </>
       )}

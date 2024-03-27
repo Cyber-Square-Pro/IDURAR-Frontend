@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Menu,Dropdown } from 'antd';
+import { Button, Menu, Dropdown } from 'antd';
 import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { crud } from '@/redux/crud/actions';
@@ -16,7 +16,7 @@ function AddNewItem({ config }) {
   const { ADD_NEW_ENTITY } = config;
   const history = useHistory();
   const handelClick = () => {
-    history.push('/addlead')
+    history.push('/addlead');
     // panel.open();
     // collapsedBox.close();
   };
@@ -36,13 +36,10 @@ function AddNewItem({ config }) {
     },
   ];
 
-
   const menu = (
     <Menu>
-      {items.map(item => (
-        <Menu.Item key={item.key} >
-          {item.label}
-        </Menu.Item>
+      {items.map((item) => (
+        <Menu.Item key={item.key}>{item.label}</Menu.Item>
       ))}
     </Menu>
   );
@@ -50,7 +47,7 @@ function AddNewItem({ config }) {
   return (
     <Button onClick={handelClick} type="primary">
       {ADD_NEW_ENTITY}
-</Button>
+    </Button>
   );
 }
 function DropDownRowMenu({ row }) {
@@ -58,11 +55,13 @@ function DropDownRowMenu({ row }) {
   const { crudContextAction } = useCrudContext();
   const { panel, collapsedBox, modal, readBox, editBox } = crudContextAction;
   const item = useSelector(selectItemById(row._id));
+  const history = useHistory();
   const Show = () => {
     dispatch(crud.currentItem({ data: item }));
-    panel.open();
-    collapsedBox.open();
-    readBox.open();
+    history.push('/show');
+    // panel.open();
+    // collapsedBox.open();
+    // readBox.open();
   };
   function Edit() {
     dispatch(crud.currentItem({ data: item }));
@@ -70,7 +69,7 @@ function DropDownRowMenu({ row }) {
     editBox.open();
     panel.open();
     collapsedBox.open();
-  } 
+  }
   function Delete() {
     dispatch(crud.currentAction({ actionType: 'delete', data: item }));
     modal.open();

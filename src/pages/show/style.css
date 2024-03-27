@@ -1,0 +1,125 @@
+
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+td {
+    padding-right: 60px;
+    color: rgb(130, 131, 131);
+}
+
+.inputField {
+    padding: 8px;
+    border: none;
+
+    outline: none;
+    /* Remove default outline */
+    width: 400px;
+    height: 38px;
+    border-bottom-color: 2px solid transparent;
+    border-top-color: 2px solid transparent;
+    border-right-color: 2px solid transparent;
+    border-left-color: 2px solid transparent;
+    border-color: aliceblue;
+}
+
+/* Style for input field when hovering */
+.inputField:hover {
+    /* border-bottom-color: blue; */
+    outline: auto;
+    outline-color: #111010;
+}
+
+/* Hide bottom border when not hovered */
+.inputField:not(:hover) {
+    border-bottom-color: transparent;
+}
+
+.table-header {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.lead-name {
+    font-size: 18px;
+    padding-left: 15px;
+}
+
+.inputField-2 {
+    padding-top: 8px;
+    border: none;
+
+    outline: none;
+    /* Remove default outline */
+    width: 200px;
+    height: 38px;
+    border-bottom-color: 2px solid transparent;
+    border-top-color: 2px solid transparent;
+    border-right-color: 2px solid transparent;
+    border-left-color: 2px solid transparent;
+    border-color: aliceblue;
+}
+
+/* Style for input field when hovering */
+.inputField-2:hover {
+    /* border-bottom-color: blue; */
+    outline: auto;
+    outline-color: #111010;
+
+
+}
+
+/* Hide bottom border when not hovered */
+.inputField-2:not(:hover) {
+    border-bottom-color: transparent;
+}
+
+.notes {
+    display: flex;
+    align-Items: center;
+    justify-Content: space-between;
+    position: relative;
+}
+
+.notediv {
+    width: calc(100% - 150px);
+    margin-Right: 10px;
+}
+
+TextArea {
+    width: 100%;
+    min-height: 100px;
+    position: relative;
+}
+
+.noteInput {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.notebtn {
+    display: inline;
+    float: right;
+}
+
+.input-icons {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.input-icons i {
+    position: absolute;
+}
+
+.icon {
+    padding: 10px;
+    color: green;
+    min-width: 50px;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}

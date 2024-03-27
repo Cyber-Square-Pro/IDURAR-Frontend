@@ -41,8 +41,8 @@ export const routesConfig = [
     component: 'Customer',
   },
   {
-    path:'/product',
-    component:'Product/index',
+    path: '/product',
+    component: 'Product/index',
   },
   {
     path: '/invoice',
@@ -145,18 +145,22 @@ export const routesConfig = [
     component: 'Lead/LeadRead',
   },
   {
+    path: '/show',
+    component: 'show/show',
+  },
+  {
     path: '/lead/update/:id',
     component: 'Lead/LeadUpdate',
   },
   {
-    path:'/addlead',
-    component:'AddLead/index'
+    path: '/addlead',
+    component: 'AddLead/index',
   },
   {
     path: '/offer',
     component: 'Offer/index',
   },
-  
+
   {
     path: '/offer/create',
     component: 'Offer/OfferCreate',

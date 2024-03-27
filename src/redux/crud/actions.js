@@ -46,6 +46,8 @@ export const crud = {
       let data = await request.list({ entity, options });
 
       if (data.success === true) {
+        console.log(data.result)
+        console.log(data.pagination.count);
         const result = {
           items: data.result,
           pagination: {
@@ -80,6 +82,7 @@ export const crud = {
       console.log('insid request action', jsonData);
 
       if (data.success === true) {
+        console.log("success fully added lead "+data)
         dispatch({
           type: actionTypes.REQUEST_SUCCESS,
           keyState: 'create',
@@ -91,6 +94,7 @@ export const crud = {
           payload: data.result,
         });
       } else {
+        console.log(' failed adding lead ' + data);
         dispatch({
           type: actionTypes.REQUEST_FAILED,
           keyState: 'create',
@@ -106,10 +110,11 @@ export const crud = {
         keyState: 'upload',
         payload: null,
       });
-
+      console.log(jsonData)
       let data = await request.upload({ entity, jsonData });
       console.log('inside uploadaction', data, data.result);
       if (data.success === true) {
+        console.log(data);
         dispatch({
           type: actionTypes.REQUEST_SUCCESS,
           keyState: 'upload',

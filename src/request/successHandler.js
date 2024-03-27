@@ -7,7 +7,7 @@ const successHandler = (response, options = { notifyOnSuccess: false, notifyOnFa
   if (data && data.success === true) {
     const message = response.data && data.message;
     const successText = message || codeMessage[response.status];
-
+    console.log(data)
     if (options.notifyOnSuccess) {
       notification.config({
         duration: 5,

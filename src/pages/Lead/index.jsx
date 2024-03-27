@@ -1,11 +1,14 @@
 import dayjs from 'dayjs';
 import { Tag } from 'antd';
 import React from 'react';
+import { crud } from '@/redux/crud/actions';
 
 import CrudModule from '@/modules/CrudModule';
 import LeadForm from '@/forms/LeadForm';
 
 import configPage from './config';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch } from 'react-redux';
 
 export default function Lead() {
   const searchConfig = {
@@ -13,8 +16,9 @@ export default function Lead() {
     searchFields: 'firstname,company',
     outputValue: '_id',
   };
+  const dispatch = useDispatch();
   const entityDisplayLabels = ['number', 'company'];
-
+  const history = useHistory();
   const readColumns = [
     {
       title: 'First Name',
@@ -47,7 +51,21 @@ export default function Lead() {
     {
       title: 'First Name',
       dataIndex: ['firstName'],
+      render: (text, item) => {
+        return (
+          <a
+            onClick={() => {
+              console.log(item);
+              dispatch(crud.currentItem({ data: item }));
+              history.push('/show');
+            }}
+          >
+            {text}
+          </a>
+        );
+      },
     },
+
     {
       title: 'Last Name',
       dataIndex: ['lastName'],
@@ -62,7 +80,7 @@ export default function Lead() {
     },
     {
       title: 'Phone',
-      dataIndex: ['contactNumber'],
+      dataIndex: ['phone'],
     },
     {
       title: 'Status',

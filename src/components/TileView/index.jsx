@@ -74,7 +74,7 @@ const TileView = ({ items, DropDownRowMenu }) => {
               </span>
             </p>
           </div>
-          <Dropdown overlay={DropDownRowMenu({ row: item })} trigger={['click']}>
+          {/* <Dropdown overlay={DropDownRowMenu({ row: item })} trigger={['click']}>
             <EllipsisOutlined
               style={{
                 position: 'relative',
@@ -85,7 +85,7 @@ const TileView = ({ items, DropDownRowMenu }) => {
                 cursor: 'pointer',
               }}
             />
-          </Dropdown>
+          </Dropdown> */}
         </div>
       ))}
     </div>
